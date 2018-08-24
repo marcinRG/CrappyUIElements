@@ -39,16 +39,20 @@ gulp.task('test-run', function (done) {
     runTests(done);
 });
 
-gulp.task('copy-other-resources', function () {
-    msg('Kopiowanie dododatkowych plików aplikacji');
-    return gulp.src(settings.app.otherAppResources)
-        .pipe(gulp.dest(settings.build.path));
+gulp.task('browserify-compil', [], function () {
+    return browserify({
+        entries: [settings.app.tsFile],
+        debug: true
+    }).plugin(tsify)
+        .bundle()
+        .pipe(source(settings.app.compiledJS))
+        .pipe(gulp.dest('./'));
 });
 
-gulp.task('copy-app-assets', function () {
-    msg('Kopiowanie assetów aplikacji');
-    return gulp.src(settings.app.assets)
-        .pipe(gulp.dest(settings.build.buildAssets));
+gulp.task('browserify-inject-js', ['browserify-compil'], function () {
+    return gulp.src(settings.app.index)
+        .pipe($.inject(gulp.src(settings.app.compiledJS, {read: false}), {relative: true}))
+        .pipe(gulp.dest(settings.app.client));
 });
 
 gulp.task('sass-compile', ['lint-sass'], function () {
@@ -68,44 +72,6 @@ gulp.task('default', ['help']);
 
 gulp.task('sass-watcher', function () {
     gulp.watch(settings.app.scssStyles, ['sass-compile']);
-});
-
-gulp.task('compile-remote-tests', [], function () {
-    return browserify({
-        entries: [settings.tests.tsFile],
-        debug: true
-    }).plugin(tsify)
-        .bundle()
-        .pipe(source(settings.tests.compiledJS))
-        .pipe(gulp.dest('./'));
-});
-
-gulp.task('compile-maps-tests', [], function () {
-    return browserify({
-        entries: [settings.tests.tsFileMaps],
-        debug: true
-    }).plugin(tsify)
-        .bundle()
-        .pipe(source(settings.tests.compiledMapsJS))
-        .pipe(gulp.dest('./'));
-});
-
-gulp.task('compile-misc-tests', [], function () {
-    return browserify({
-        entries: [settings.tests.tsFileMisc],
-        debug: true
-    }).plugin(tsify)
-        .bundle()
-        .pipe(source(settings.tests.compiledMiscJS))
-        .pipe(gulp.dest('./'));
-});
-
-gulp.task('ts-compile', ['code-check', 'copy-other-resources', 'copy-app-assets'], function () {
-    return gulp.src(settings.app.app)
-        .pipe($.sourcemaps.init())
-        .pipe(tsProject())
-        .pipe($.sourcemaps.write('.', {sourceRoot: '/src'}))
-        .pipe(gulp.dest(settings.build.appPath));
 });
 
 gulp.task('ts-watcher', function () {

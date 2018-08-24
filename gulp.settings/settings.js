@@ -15,7 +15,7 @@ var paths = {
     allTSs: [tsFolder + '**/*.ts'],
     allTSandTest:  [tsFolder + '**/*.ts', testFolder + '**/*.ts'],
     jsAppFolder: jsFolder,
-    tsFile: tsFolder + 'app.ts',
+    tsFile: tsFolder + 'test.ts',
     jsFile: jsFolder + 'app.js',
     compiledJS: devFolder + 'bundle.js',
     compiledTS: devFolder + 'bundle.ts',

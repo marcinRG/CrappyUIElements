@@ -1,7 +1,7 @@
-import {animationsUtils} from './../../../Utils/Animation.Utilities';
-import {ISelectableList} from './../../../Inerfaces/ISelectableList';
-import {IComboBoxProperties} from './../../../Inerfaces/IComboBox.Properties';
-import * as CBoxUtils from './../ComboBox.Utils';
+import {animationsUtils} from '../../../Utils/Animation.Utilities';
+import {ISelectableList} from '../../../Inerfaces/ISelectableList';
+import {IComboBoxProperties} from '../../../Inerfaces/IComboBox.Properties';
+import * as CBoxUtils from '../ComboBox.Utils';
 
 export class ComboBox {
     private htmlElement;
@@ -16,7 +16,8 @@ export class ComboBox {
         this.createElements(properties);
         this.txtInput.readOnly = true;
         this.listElementClass = properties.listElementClass;
-        CBoxUtils.createListElements(selectableList, this.listElements, this.listElementClass, this, this.changeToSelected);
+        CBoxUtils.createListElements(selectableList, this.listElements, this.listElementClass,
+            this, this.changeToSelected);
         this.btnInput.addEventListener('click', () => {
             this.toggleListElements();
         });

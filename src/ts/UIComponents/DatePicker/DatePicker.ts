@@ -1,6 +1,6 @@
 import {DateExtended} from './DateExtended';
-import {animationsUtils} from '../../Utils/Animation.Utilities';
-import * as utils from '../../Utils/Utilities';
+import {animationsUtils} from './../../Utils/Animation.Utilities';
+import * as utils from './../../Utils/Utilities';
 
 export class DatePicker {
     private htmlElement = document.querySelector('.input-date-picker');

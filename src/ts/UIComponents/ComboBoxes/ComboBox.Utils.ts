@@ -9,7 +9,7 @@ export function createHTMLElements(properties: IComboBoxProperties) {
     const htmlInner = `
         <div class="${inputsRowClass}">
             <input class="${inputTxtClass}" type="text">
-            <input class="${inputBtnClass}" type="button" value="V">
+            <input class="${inputBtnClass}" type="button" value="&#11206;">
         </div>
         <ul class="${listClass}">
         </ul>`;

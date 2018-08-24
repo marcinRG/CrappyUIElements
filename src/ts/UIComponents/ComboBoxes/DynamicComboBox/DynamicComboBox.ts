@@ -1,7 +1,7 @@
-import {animationsUtils} from './../../../Utils/Animation.Utilities';
-import {ISelectableList} from './../../../Inerfaces/ISelectableList';
-import {IComboBoxProperties} from './../../../Inerfaces/IComboBox.Properties';
-import * as CBoxUtils from './../ComboBox.Utils';
+import {animationsUtils} from '../../../Utils/Animation.Utilities';
+import {ISelectableList} from '../../../Inerfaces/ISelectableList';
+import {IComboBoxProperties} from '../../../Inerfaces/IComboBox.Properties';
+import * as CBoxUtils from '../ComboBox.Utils';
 
 
 export class DynamicComboBox {
