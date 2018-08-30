@@ -59,7 +59,7 @@ gulp.task('sass-compile', ['lint-sass'], function () {
     msg('Kompilacja plików scss -> css');
     return gulp.src(settings.app.scssFile)
         .pipe($.sass().on('error', $.sass.logError))
-        .pipe(gulp.dest(settings.app.cssFile));
+        .pipe(gulp.dest(settings.app.cssStyles));
 });
 
 gulp.task('run-dev', [], function () {
