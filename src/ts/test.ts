@@ -29,12 +29,12 @@ const list2 = [
     'element 11',
 ];
 
-// const datePicker = new DatePicker();
-const txtArray = new PlainTextArray(list);
-const txtArray2 = new PlainTextArray(list2);
-
-const comboBox = new ComboBox({
-    querySelectorString: '#combo-box-1',
-    listElementClass: 'li-elem',
-    maxSize: 5,
-}, txtArray);
+// // const datePicker = new DatePicker();
+// const txtArray = new PlainTextArray(list);
+// const txtArray2 = new PlainTextArray(list2);
+//
+// const comboBox = new ComboBox({
+//     querySelectorString: '#combo-box-1',
+//     listElementClass: 'li-elem',
+//     maxSize: 5,
+// }, txtArray);
