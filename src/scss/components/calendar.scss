@@ -73,6 +73,21 @@
       text-align: center;
     }
 
+    .days-table {
+      margin: 0 auto .25em;
+      text-align: center;
+
+      td {
+        padding: .1em;
+        border: 3px transparent solid;
+      }
+
+      thead {
+        background-color: $cui-element-title;
+        font-weight: bold;
+      }
+    }
+
   }
 
 }
