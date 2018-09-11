@@ -77,19 +77,27 @@
       margin: 0 auto .25em;
       text-align: center;
 
-      td {
+      .cell-header {
         padding: .1em;
         border: 3px transparent solid;
-      }
-
-      thead {
         background-color: $cui-element-title;
         font-weight: bold;
       }
+
+      .cell-day {
+        padding: .1em;
+
+        &.today-date {
+          border-top: 3px green solid;
+        }
+
+        &.current-date {
+          border-bottom: 3px solid red;
+        }
+
+      }
     }
-
   }
-
 }
 
 //.input-date-picker {
