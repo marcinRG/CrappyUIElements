@@ -1,8 +1,7 @@
 import {animationsUtils} from '../../../Utils/Animation.Utilities';
-import {ISelectableList} from '../../../Inerfaces/ISelectableList';
-import {IComboBoxProperties} from '../../../Inerfaces/IComboBox.Properties';
+import {ISelectableList} from '../../../Interfaces/ISelectableList';
+import {IComboBoxProperties} from '../../../Interfaces/IComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
-
 
 export class DynamicComboBox {
     private htmlElement;
@@ -11,6 +10,7 @@ export class DynamicComboBox {
     private listElements;
     private listElementClass;
     private listVisible = false;
+    private changeBtnClass;
     private selectedElement: any;
     // this.debouncedParseAndAddToOutput = CBoxUtils.debounce<string>((value) => {
     //     if (this.date.setDateFromString(value)) {
@@ -21,19 +21,25 @@ export class DynamicComboBox {
 
     constructor(properties: IComboBoxProperties, private selectableList: ISelectableList<any>) {
         this.createElements(properties);
-        this.txtInput.readOnly = false;
-        this.listElementClass = properties.listElementClass;
+        this.setInitialProperties(properties);
         CBoxUtils.createFilteredListElements('', 0, selectableList, this.listElements,
             this.listElementClass, this, this.changeToSelected);
         this.btnInput.addEventListener('click', () => {
+            CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
             this.toggleListElements();
         });
-        this.txtInput.addEventListener('input', (event) => {
-            console.log(event);
+
+        this.txtInput.addEventListener('input', () => {
             CBoxUtils.createFilteredListElements(this.txtInput.value, 0, selectableList, this.listElements,
                 this.listElementClass, this, this.changeToSelected);
             console.log(this.selectableList.filteredValues(this.txtInput.value));
         });
+    }
+
+    private setInitialProperties(properties: IComboBoxProperties) {
+        this.txtInput.readOnly = false;
+        this.changeBtnClass = properties.btnChangeClass || 'unfolded';
+        this.listElementClass = properties.listElementClass;
     }
 
     private changeToSelected() {
@@ -43,11 +49,10 @@ export class DynamicComboBox {
     private toggleListElements() {
         if (!this.listVisible) {
             animationsUtils.slideDown(this.listElements, 150, 'ease-in', 'auto');
-            this.listVisible = true;
         } else {
             animationsUtils.slideUp(this.listElements, 150, 'ease-in', 'hidden');
-            this.listVisible = false;
         }
+        this.listVisible = !this.listVisible;
     }
 
     private createElements(properites: IComboBoxProperties) {
@@ -58,3 +63,8 @@ export class DynamicComboBox {
         this.listElements = elements.listElements;
     }
 }
+
+//TODO 1. maxLenght dla wyswietlania listy nie działa
+//TODO zmienic sposob wysietlania całej listy wartości
+//TODO
+//TODO

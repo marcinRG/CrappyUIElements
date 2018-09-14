@@ -23,27 +23,27 @@
     overflow: auto;
     height: 210px;
 
+    .element {
+      padding: 0 .2em 0 .5em;
+    }
+
+    .check-box {
+
+      &::before {
+        content: '\02610';
+      }
+
+      &.checked {
+        &::before {
+          content: '\02611';
+        }
+      }
+    }
+
     .li-elem {
       padding: .7em .4em;
       font-size: 1em;
       cursor: pointer;
-
-      .check-box {
-
-        &:before {
-          content: '\02610';;
-        }
-
-        &.checked {
-          &:before {
-            content: '\02611';
-          }
-        }
-      }
-
-      .element {
-        padding: 0 .2em 0 .5em;
-      }
 
       &:hover {
         background-color: $cui-element-hover;
@@ -51,5 +51,4 @@
       }
     }
   }
-
 }

@@ -1,5 +1,6 @@
 import {PlainTextArray} from './misc/PlainTextArray';
 import {ComboBox} from './UIComponents/ComboBoxes/ComboBox/ComboBox';
+import {DynamicComboBox} from './UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
 
 const list = [
     'element 1',
@@ -29,12 +30,21 @@ const list2 = [
     'element 11',
 ];
 
-// // const datePicker = new DatePicker();
-// const txtArray = new PlainTextArray(list);
-// const txtArray2 = new PlainTextArray(list2);
-//
-// const comboBox = new ComboBox({
-//     querySelectorString: '#combo-box-1',
-//     listElementClass: 'li-elem',
-//     maxSize: 5,
-// }, txtArray);
+const txtArray = new PlainTextArray(list);
+const txtArray2 = new PlainTextArray(list2);
+
+//comboBox
+const comboBox = new ComboBox({
+    elementClass: 'combo-box-cuie',
+    querySelectorString: '.combo-box-1',
+    listElementClass: 'li-elem',
+    maxSize: 4,
+}, txtArray);
+
+//comboBox with autocomplete
+const comboBox2 = new DynamicComboBox({
+    elementClass: 'combo-box-cuie',
+    querySelectorString: '.combo-box-2',
+    listElementClass: 'li-elem',
+    maxSize: 5,
+}, txtArray2);

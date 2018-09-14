@@ -1,7 +1,8 @@
-import {ISelectableList} from '../../Inerfaces/ISelectableList';
-import {IComboBoxProperties} from '../../Inerfaces/IComboBox.Properties';
+import {ISelectableList} from '../../Interfaces/ISelectableList';
+import {IComboBoxProperties} from '../../Interfaces/IComboBox.Properties';
 
 export function createHTMLElements(properties: IComboBoxProperties) {
+    const elementClass = properties.elementClass;
     const inputTxtClass = properties.txtInputClass || 'input-txt';
     const inputBtnClass = properties.btnInputClass || 'input-btn';
     const inputsRowClass = properties.inputsRowClass || 'inputs';
@@ -9,11 +10,12 @@ export function createHTMLElements(properties: IComboBoxProperties) {
     const htmlInner = `
         <div class="${inputsRowClass}">
             <input class="${inputTxtClass}" type="text">
-            <input class="${inputBtnClass}" type="button" value="&#11206;">
+            <button class="${inputBtnClass}"></button>
         </div>
         <ul class="${listClass}">
         </ul>`;
     const htmlElement = document.querySelector(properties.querySelectorString);
+    htmlElement.classList.add(elementClass);
     htmlElement.innerHTML = htmlInner;
     if (htmlElement) {
         return {
@@ -22,6 +24,16 @@ export function createHTMLElements(properties: IComboBoxProperties) {
             btnInput: htmlElement.querySelector(`.${inputBtnClass}`),
             listElements: htmlElement.querySelector(`.${listClass}`),
         };
+    }
+}
+
+export function addRemoveClass(condition: boolean, element: HTMLElement, className: string) {
+    if (element) {
+        if (condition) {
+            element.classList.remove(className);
+        } else {
+            element.classList.add(className);
+        }
     }
 }
 
@@ -34,7 +46,6 @@ export function createListElements(list: ISelectableList<any>, htmlListElement: 
             const liElem = document.createElement('li');
             liElem.textContent = list.getTitle(elem);
             const uniqueID = list.getUniqueID(elem);
-            console.log(uniqueID);
             liElem.setAttribute('data-list-nr', uniqueID);
             liElem.addEventListener('click', () => {
                 callback.apply(comboBox, [uniqueID]);

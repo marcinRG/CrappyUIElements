@@ -1,4 +1,4 @@
-import {ISelectableList} from './../Inerfaces/ISelectableList';
+import {ISelectableList} from './../Interfaces/ISelectableList';
 
 export class PlainTextArray implements ISelectableList<string> {
     constructor(public values: string[]) {
