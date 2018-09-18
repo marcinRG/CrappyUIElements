@@ -9,6 +9,7 @@ export class DynamicComboBox {
     private btnInput;
     private listElements;
     private listElementClass;
+    private maxLength;
     private listVisible = false;
     private changeBtnClass;
     private selectedElement: any;
@@ -32,7 +33,11 @@ export class DynamicComboBox {
         this.txtInput.addEventListener('input', () => {
             CBoxUtils.createFilteredListElements(this.txtInput.value, 0, selectableList, this.listElements,
                 this.listElementClass, this, this.changeToSelected);
-            console.log(this.selectableList.filteredValues(this.txtInput.value));
+            this.toggleListElements();
+            // this.listElements.style.height = heightOverflowProperties.height + 'px';
+            // this.listElements.style.overflow = heightOverflowProperties.overflow;
+            // this.listElements.style.display = 'block';
+            // this.listVisible = true;
         });
     }
 
@@ -40,6 +45,7 @@ export class DynamicComboBox {
         this.txtInput.readOnly = false;
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
         this.listElementClass = properties.listElementClass;
+        this.maxLength = properties.maxSize;
     }
 
     private changeToSelected() {
@@ -47,12 +53,20 @@ export class DynamicComboBox {
     }
 
     private toggleListElements() {
-        if (!this.listVisible) {
-            animationsUtils.slideDown(this.listElements, 150, 'ease-in', 'auto');
-        } else {
-            animationsUtils.slideUp(this.listElements, 150, 'ease-in', 'hidden');
+        const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
+        this.listElements.style.height = heightOverflowProperties.height + 'px';
+        this.listElements.style.overflow = heightOverflowProperties.overflow;
+        console.log(heightOverflowProperties);
+        if (heightOverflowProperties.height > 0) {
+            if (!this.listVisible) {
+                animationsUtils.slideDown(this.listElements, 10000, 'ease-in',
+                    heightOverflowProperties.overflow, heightOverflowProperties.height);
+            } else {
+                animationsUtils.slideUp(this.listElements, 10000, 'ease-in', 'hidden',
+                    heightOverflowProperties.height);
+            }
+            this.listVisible = !this.listVisible;
         }
-        this.listVisible = !this.listVisible;
     }
 
     private createElements(properites: IComboBoxProperties) {

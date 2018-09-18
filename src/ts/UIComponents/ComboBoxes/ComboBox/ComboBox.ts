@@ -9,6 +9,7 @@ export class ComboBox {
     private btnInput;
     private listElements;
     private listElementClass;
+    private maxLength;
     private listVisible = false;
     private selectedElement: any;
     private changeBtnClass;
@@ -28,14 +29,7 @@ export class ComboBox {
         this.txtInput.readOnly = true;
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
         this.listElementClass = properties.listElementClass;
-    }
-
-    private changeButtonClass(className: string) {
-        if (this.listVisible) {
-            this.btnInput.classList.remove(className);
-        } else {
-            this.btnInput.classList.add(className);
-        }
+        this.maxLength = properties.maxSize;
     }
 
     private createElements(properites: IComboBoxProperties) {
@@ -57,19 +51,25 @@ export class ComboBox {
     }
 
     private hideAfterSelected() {
-        animationsUtils.slideUp(this.listElements, 50, 'ease-in', 'hidden');
+        const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
+        animationsUtils.slideUp(this.listElements, 50, 'ease-in', 'hidden',
+            heightOverflowProperties.height);
         CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
         this.listVisible = false;
     }
 
     private toggleListElements() {
+        const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
         if (!this.listVisible) {
-            animationsUtils.slideDown(this.listElements, 150, 'ease-in', 'auto');
+            animationsUtils.slideDown(this.listElements, 150, 'ease-in',
+                heightOverflowProperties.overflow, heightOverflowProperties.height);
         } else {
-            animationsUtils.slideUp(this.listElements, 150, 'ease-in', 'hidden');
+            animationsUtils.slideUp(this.listElements, 150, 'ease-in', 'hidden',
+                heightOverflowProperties.height);
         }
         this.listVisible = !this.listVisible;
     }
 }
+
 //TODO 1. maxLenght dla wyswietlania listy nie działa
 //TODO zmienic sposob wysietlania całej listy wartości

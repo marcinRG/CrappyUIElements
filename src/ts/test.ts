@@ -21,12 +21,12 @@ const list2 = [
     'ipsum 2',
     'dolor sit amet',
     'consectetur adipisicing',
-    'element 5',
-    'element 6',
+    'lement 5',
+    'loement 6',
     'element 7',
     'element 8',
-    'element 9',
-    'element 10',
+    'dlement 9',
+    'dlement 10',
     'element 11',
 ];
 
@@ -38,7 +38,7 @@ const comboBox = new ComboBox({
     elementClass: 'combo-box-cuie',
     querySelectorString: '.combo-box-1',
     listElementClass: 'li-elem',
-    maxSize: 4,
+    maxSize: 5,
 }, txtArray);
 
 //comboBox with autocomplete
