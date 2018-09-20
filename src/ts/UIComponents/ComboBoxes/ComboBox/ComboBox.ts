@@ -61,10 +61,10 @@ export class ComboBox {
     private toggleListElements() {
         const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
         if (!this.listVisible) {
-            animationsUtils.slideDown(this.listElements, 150, 'ease-in',
+            animationsUtils.slideDown(this.listElements, 100, 'ease-in',
                 heightOverflowProperties.overflow, heightOverflowProperties.height);
         } else {
-            animationsUtils.slideUp(this.listElements, 150, 'ease-in', 'hidden',
+            animationsUtils.slideUp(this.listElements, 100, 'ease-in', 'hidden',
                 heightOverflowProperties.height);
         }
         this.listVisible = !this.listVisible;

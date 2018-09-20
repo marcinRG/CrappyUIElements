@@ -15,7 +15,7 @@ class AnimationsUtils {
     }
 
     public slideDown(elem, time, ease, overflowStyle, height) {
-        elem.style.overflow = overflowStyle;
+        elem.style.overflow = 'hidden';
         elem.style.height = 0 + 'px';
         elem.style.display = this.isDisplayedString;
         elem.removeAttribute(this.hiddenAttribute);
@@ -24,12 +24,15 @@ class AnimationsUtils {
         }, {
             duration: time,
             easing: ease,
+            complete: () => {
+                console.log('completed');
+                elem.style.overflow = overflowStyle;
+            },
         });
     }
 
     public slideUp(elem, time, ease, overflowStyle, height) {
         elem.style.overflow = overflowStyle;
-        elem.style.height = height + 'px';
         Velocity(elem, {
             height: '0px',
         }, {

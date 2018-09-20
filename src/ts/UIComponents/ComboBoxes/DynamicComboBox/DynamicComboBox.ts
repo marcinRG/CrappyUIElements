@@ -33,7 +33,17 @@ export class DynamicComboBox {
         this.txtInput.addEventListener('input', () => {
             CBoxUtils.createFilteredListElements(this.txtInput.value, 0, selectableList, this.listElements,
                 this.listElementClass, this, this.changeToSelected);
-            this.toggleListElements();
+            const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
+            this.listElements.style.height = heightOverflowProperties.height + 'px';
+            if (!this.listVisible) {
+                console.log('not visible');
+                CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
+                this.listElements.style.display = 'block';
+                this.listElements.style.overflow = 'hidden';
+                // animationsUtils.slideDown(this.listElements, 100, 'ease-in',
+                //     'hidden', heightOverflowProperties.height);
+                this.listVisible = true;
+            }
             // this.listElements.style.height = heightOverflowProperties.height + 'px';
             // this.listElements.style.overflow = heightOverflowProperties.overflow;
             // this.listElements.style.display = 'block';
@@ -54,15 +64,12 @@ export class DynamicComboBox {
 
     private toggleListElements() {
         const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
-        this.listElements.style.height = heightOverflowProperties.height + 'px';
-        this.listElements.style.overflow = heightOverflowProperties.overflow;
-        console.log(heightOverflowProperties);
         if (heightOverflowProperties.height > 0) {
             if (!this.listVisible) {
-                animationsUtils.slideDown(this.listElements, 10000, 'ease-in',
+                animationsUtils.slideDown(this.listElements, 100, 'ease-in',
                     heightOverflowProperties.overflow, heightOverflowProperties.height);
             } else {
-                animationsUtils.slideUp(this.listElements, 10000, 'ease-in', 'hidden',
+                animationsUtils.slideUp(this.listElements, 100, 'ease-in', 'hidden',
                     heightOverflowProperties.height);
             }
             this.listVisible = !this.listVisible;
@@ -80,5 +87,4 @@ export class DynamicComboBox {
 
 //TODO 1. maxLenght dla wyswietlania listy nie działa
 //TODO zmienic sposob wysietlania całej listy wartości
-//TODO
 //TODO
