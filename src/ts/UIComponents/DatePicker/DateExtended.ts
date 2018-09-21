@@ -1,11 +1,7 @@
 export class DateExtended {
-    public daysLabels = ['Nie', 'Pon', 'Wto', 'Sro', 'Czw', 'Pio', 'Sob'];
-    public monthsLabels = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
-        'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
     private date = new Date();
-    private separator = '/';
 
-    constructor() {
+    constructor(public daysLabels: string[], public monthsLabels: string[], public separator: string = '/') {
         this.date = new Date();
     }
 
@@ -79,8 +75,7 @@ export class DateExtended {
     }
 
     private formatNumbers(n: number) {
-        let str = n + '';
+        const str = n + '';
         return str.length > 1 ? str : '0' + str;
     }
-
 }

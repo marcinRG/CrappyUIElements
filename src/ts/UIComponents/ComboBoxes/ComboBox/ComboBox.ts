@@ -17,7 +17,8 @@ export class ComboBox {
     constructor(properties: IComboBoxProperties, private selectableList: ISelectableList<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
-        CBoxUtils.createListElements(selectableList, this.listElements, this.listElementClass,
+        const values = this.selectableList.values;
+        CBoxUtils.createListElements(this.selectableList, values, this.listElements, this.listElementClass,
             this, this.changeToSelected);
         this.btnInput.addEventListener('click', () => {
             CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
@@ -51,25 +52,11 @@ export class ComboBox {
     }
 
     private hideAfterSelected() {
-        const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
-        animationsUtils.slideUp(this.listElements, 50, 'ease-in', 'hidden',
-            heightOverflowProperties.height);
-        CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
-        this.listVisible = false;
+        this.listVisible = CBoxUtils.hideAfterSelected(this.listElements, this.maxLength,
+            this.listVisible, this.btnInput, this.changeBtnClass);
     }
 
     private toggleListElements() {
-        const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
-        if (!this.listVisible) {
-            animationsUtils.slideDown(this.listElements, 100, 'ease-in',
-                heightOverflowProperties.overflow, heightOverflowProperties.height);
-        } else {
-            animationsUtils.slideUp(this.listElements, 100, 'ease-in', 'hidden',
-                heightOverflowProperties.height);
-        }
-        this.listVisible = !this.listVisible;
+        this.listVisible = CBoxUtils.toggleListElements(this.listElements, this.maxLength, this.listVisible);
     }
 }
-
-//TODO 1. maxLenght dla wyswietlania listy nie działa
-//TODO zmienic sposob wysietlania całej listy wartości

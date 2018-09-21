@@ -1,6 +1,8 @@
 import {PlainTextArray} from './misc/PlainTextArray';
 import {ComboBox} from './UIComponents/ComboBoxes/ComboBox/ComboBox';
 import {DynamicComboBox} from './UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
+import {DatePicker} from './UIComponents/DatePicker/DatePicker';
+import {DateExtended} from './UIComponents/DatePicker/DateExtended';
 
 const list = [
     'element 1',
@@ -48,3 +50,10 @@ const comboBox2 = new DynamicComboBox({
     listElementClass: 'li-elem',
     maxSize: 5,
 }, txtArray2);
+
+//date picker
+const daysLabels = ['Nie', 'Pon', 'Wto', 'Sro', 'Czw', 'Pio', 'Sob'];
+const monthsLabels = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
+    'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+const dateExt = new DateExtended(daysLabels, monthsLabels);
+const datePicker = new DatePicker(dateExt);

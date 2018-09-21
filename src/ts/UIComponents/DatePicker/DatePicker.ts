@@ -1,24 +1,25 @@
 import {DateExtended} from './DateExtended';
 import {animationsUtils} from './../../Utils/Animation.Utilities';
 import * as utils from './../../Utils/Utilities';
+import {IDatePickerProperties} from '../../Interfaces/IDatePicker.Properties.';
 
 export class DatePicker {
-    private htmlElement = document.querySelector('.input-date-picker');
-    private txtInput = <HTMLInputElement> this.htmlElement.querySelector('.input-txt');
-    private btnInput = this.htmlElement.querySelector('.input-btn');
-    private nextBtn = this.htmlElement.querySelector('.right-btn');
-    private prevBtn = this.htmlElement.querySelector('.left-btn');
-    private monthYearLabel = this.htmlElement.querySelector('.month-display');
-    private dayLabels = Array.from(this.htmlElement.querySelectorAll('.date-display thead td'));
-    private daysOuterElement = this.htmlElement.querySelector('.date-display tbody');
-    private datePicker = this.htmlElement.querySelector('.date-picker');
+    private htmlElement; // = document.querySelector('.input-date-picker');
+    private txtInput;    // = <HTMLInputElement> this.htmlElement.querySelector('.input-txt');
+    private btnInput;    //= this.htmlElement.querySelector('.input-btn');
+    private nextBtn;     // = this.htmlElement.querySelector('.right-btn');
+    private prevBtn;     // = this.htmlElement.querySelector('.left-btn');
+    private monthYearLabel; // = this.htmlElement.querySelector('.month-display');
+    private dayLabels;      // = Array.from(this.htmlElement.querySelectorAll('.date-display thead td'));
+    private daysOuterElement; // = this.htmlElement.querySelector('.date-display tbody');
+    private datePicker; // = this.htmlElement.querySelector('.date-picker');
+    private todayClass; // = 'current-day';
+    private selectedDayClass; // = 'selected-day';
     private daysTable;
-    private todayClass = 'current-day';
-    private selectedDayClass = 'selected-day';
-    private date: DateExtended = new DateExtended();
     private debouncedParseAndAddToOutput: any;
 
-    constructor() {
+    constructor(private date: DateExtended, properties: IDatePickerProperties) {
+        this.setProperties(properties);
         this.fillDayLabels();
         this.fillMonthYearLabel();
         this.fillDays();
@@ -132,5 +133,18 @@ export class DatePicker {
             this.daysTable[this.date.getDay() +
             this.date.firstDayWeekOfMonth() - 1].classList.add(this.selectedDayClass);
         });
+    }
+
+    private setProperties(properties: IDatePickerProperties) {
+        console.log('setting properties');
+        this.htmlElement = document.querySelector('.input-date-picker');
+        this.txtInput = <HTMLInputElement> this.htmlElement.querySelector('.input-txt');
+        this.btnInput = this.htmlElement.querySelector('.input-btn');
+        this.nextBtn = this.htmlElement.querySelector('.right-btn');
+        this.prevBtn = this.htmlElement.querySelector('.left-btn');
+        this.monthYearLabel = this.htmlElement.querySelector('.month-display');
+        this.dayLabels = Array.from(this.htmlElement.querySelectorAll('.date-display thead td'));
+        this.daysOuterElement = this.htmlElement.querySelector('.date-display tbody');
+        this.datePicker = this.htmlElement.querySelector('.date-picker');
     }
 }

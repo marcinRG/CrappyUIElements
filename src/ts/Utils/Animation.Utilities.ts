@@ -1,9 +1,9 @@
 import {Velocity} from 'velocity-animate';
 
 class AnimationsUtils {
-    private hiddenAttribute = 'data-hidden-attribute';
-    private isNotDisplayedString = 'none';
-    private isDisplayedString = 'block';
+    public hiddenAttribute = 'data-hidden-attribute';
+    public isNotDisplayedString = 'none';
+    public isDisplayedString = 'block';
 
     public slideToggle(elem, time, ease) {
         const height = this.getElementHeight(elem);
@@ -25,7 +25,6 @@ class AnimationsUtils {
             duration: time,
             easing: ease,
             complete: () => {
-                console.log('completed');
                 elem.style.overflow = overflowStyle;
             },
         });
@@ -33,6 +32,7 @@ class AnimationsUtils {
 
     public slideUp(elem, time, ease, overflowStyle, height) {
         elem.style.overflow = overflowStyle;
+        elem.style.height = height + 'px';
         Velocity(elem, {
             height: '0px',
         }, {
@@ -53,7 +53,7 @@ class AnimationsUtils {
         return height;
     }
 
-    public getListElementHeight(elem, maxLength) {
+    public getListElementHeightOverflow(elem, maxLength) {
         let height = 0;
         let overflow = 'auto';
         let childHeight = 0;
@@ -61,7 +61,6 @@ class AnimationsUtils {
             const elementProperties = this.getElementsProperites(elem);
             this.changePropertiesToGetElementHeight(elem);
             const listLength: number = elem.children.length;
-            console.log('list leng' + listLength);
             if (listLength > 0) {
                 childHeight = (<HTMLElement> elem.children[0]).offsetHeight + 1;
                 if (listLength > maxLength) {
@@ -69,7 +68,7 @@ class AnimationsUtils {
                     overflow = 'auto';
                 } else {
                     height = listLength * childHeight;
-                    overflow = 'visible';
+                    overflow = 'hidden';
                 }
             }
             this.restoreElementsProperties(elem, elementProperties);

@@ -2,6 +2,7 @@ import {animationsUtils} from '../../../Utils/Animation.Utilities';
 import {ISelectableList} from '../../../Interfaces/ISelectableList';
 import {IComboBoxProperties} from '../../../Interfaces/IComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
+import * as utils from '../../../Utils/Utilities';
 
 export class DynamicComboBox {
     private htmlElement;
@@ -13,41 +14,41 @@ export class DynamicComboBox {
     private listVisible = false;
     private changeBtnClass;
     private selectedElement: any;
-    // this.debouncedParseAndAddToOutput = CBoxUtils.debounce<string>((value) => {
-    //     if (this.date.setDateFromString(value)) {
-    //         this.fillMonthYearLabel();
-    //         this.fillDays();
-    //     }
-    // }, 1200);
+    private debouncedInputTxt: any;
 
     constructor(properties: IComboBoxProperties, private selectableList: ISelectableList<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
-        CBoxUtils.createFilteredListElements('', 0, selectableList, this.listElements,
+        CBoxUtils.createListElements(this.selectableList, this.selectableList.values, this.listElements,
             this.listElementClass, this, this.changeToSelected);
+
         this.btnInput.addEventListener('click', () => {
             CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
             this.toggleListElements();
         });
 
-        this.txtInput.addEventListener('input', () => {
-            CBoxUtils.createFilteredListElements(this.txtInput.value, 0, selectableList, this.listElements,
+        this.debouncedInputTxt = utils.debounce<string>((txtValue) => {
+            const values = this.selectableList.filteredValues(txtValue, 0);
+            CBoxUtils.createListElements(this.selectableList, values, this.listElements,
                 this.listElementClass, this, this.changeToSelected);
-            const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
-            this.listElements.style.height = heightOverflowProperties.height + 'px';
-            if (!this.listVisible) {
-                console.log('not visible');
-                CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
-                this.listElements.style.display = 'block';
-                this.listElements.style.overflow = 'hidden';
-                // animationsUtils.slideDown(this.listElements, 100, 'ease-in',
-                //     'hidden', heightOverflowProperties.height);
-                this.listVisible = true;
+            const heightOverflowProperties = animationsUtils.getListElementHeightOverflow(this.listElements,
+                this.maxLength);
+            if (values.length > 0) {
+                this.listElements.style.height = heightOverflowProperties.height + 'px';
+                this.listElements.style.overflow = heightOverflowProperties.overflow;
+                if (!this.listVisible) {
+                    CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
+                    this.listElements.style.display = 'block';
+                    this.listVisible = true;
+                }
+            } else {
+                this.listVisible = false;
+                this.listElements.style.display = 'none';
             }
-            // this.listElements.style.height = heightOverflowProperties.height + 'px';
-            // this.listElements.style.overflow = heightOverflowProperties.overflow;
-            // this.listElements.style.display = 'block';
-            // this.listVisible = true;
+        }, 1200);
+
+        this.txtInput.addEventListener('input', () => {
+            this.debouncedInputTxt(this.txtInput.value);
         });
     }
 
@@ -58,22 +59,26 @@ export class DynamicComboBox {
         this.maxLength = properties.maxSize;
     }
 
-    private changeToSelected() {
-        console.log('changed');
+    private changeToSelected(ID: string) {
+        const index = this.selectableList.getIndex(ID);
+        const elem = this.selectableList.values[index];
+        this.selectedElement = elem;
+        if (this.selectedElement) {
+            this.txtInput.value = this.selectableList.getTitle(elem);
+            const values = this.selectableList.filteredValues(this.txtInput.value, 0);
+            CBoxUtils.createListElements(this.selectableList, values, this.listElements,
+                this.listElementClass, this, this.changeToSelected);
+            this.hideAfterSelected();
+        }
+    }
+
+    private hideAfterSelected() {
+        this.listVisible = CBoxUtils.hideAfterSelected(this.listElements, this.maxLength,
+            this.listVisible, this.btnInput, this.changeBtnClass);
     }
 
     private toggleListElements() {
-        const heightOverflowProperties = animationsUtils.getListElementHeight(this.listElements, this.maxLength);
-        if (heightOverflowProperties.height > 0) {
-            if (!this.listVisible) {
-                animationsUtils.slideDown(this.listElements, 100, 'ease-in',
-                    heightOverflowProperties.overflow, heightOverflowProperties.height);
-            } else {
-                animationsUtils.slideUp(this.listElements, 100, 'ease-in', 'hidden',
-                    heightOverflowProperties.height);
-            }
-            this.listVisible = !this.listVisible;
-        }
+        this.listVisible = CBoxUtils.toggleListElements(this.listElements, this.maxLength, this.listVisible);
     }
 
     private createElements(properites: IComboBoxProperties) {
@@ -84,7 +89,3 @@ export class DynamicComboBox {
         this.listElements = elements.listElements;
     }
 }
-
-//TODO 1. maxLenght dla wyswietlania listy nie działa
-//TODO zmienic sposob wysietlania całej listy wartości
-//TODO

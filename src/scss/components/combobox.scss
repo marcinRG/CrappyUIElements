@@ -50,6 +50,7 @@
     padding: 0;
     margin: 0;
     overflow: auto;
+    //setting element height can cause visual bugs when sliding down
     //height: 410px;
 
     .li-elem {
