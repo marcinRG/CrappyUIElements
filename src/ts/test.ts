@@ -56,4 +56,13 @@ const daysLabels = ['Nie', 'Pon', 'Wto', 'Sro', 'Czw', 'Pio', 'Sob'];
 const monthsLabels = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
     'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 const dateExt = new DateExtended(daysLabels, monthsLabels);
-const datePicker = new DatePicker(dateExt);
+const datePicker = new DatePicker(dateExt, {
+    querySelectorString: '.date-picker-1',
+    elementClass: 'date-picker-cuie',
+    todayClass: 'today-date',
+    selectedDayClass: 'current-date',
+    monthSelectionClass: 'month-selection',
+    monthYearLabelClass: 'month-display',
+    prevBtnClass: 'prev-btn',
+    nextBtnClass: 'next-btn',
+});
