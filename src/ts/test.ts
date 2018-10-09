@@ -65,4 +65,8 @@ const datePicker = new DatePicker(dateExt, {
     monthYearLabelClass: 'month-display',
     prevBtnClass: 'prev-btn',
     nextBtnClass: 'next-btn',
+    dayLabelClass: 'cell-header',
+    dayClass: 'cell-day',
+    dayTableClass: 'days-table',
+    datePickerDivClass: 'date-picker',
 });

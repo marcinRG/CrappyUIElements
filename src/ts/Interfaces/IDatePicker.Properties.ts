@@ -13,7 +13,10 @@ export interface IDatePickerProperties {
     nextBtnClass?: string;
     monthYearLabelClass?: string;
     //
-    dayLabelsSelector?: string;
+    dayTableClass?: string;
+    dayLabelClass?: string;
+    dayClass?: string;
     todayClass: string;
     selectedDayClass: string;
+    datePickerDivClass?: string;
 }
