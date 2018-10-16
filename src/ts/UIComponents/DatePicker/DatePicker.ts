@@ -4,18 +4,16 @@ import * as utils from './../../Utils/Utilities';
 import {IDatePickerProperties} from '../../Interfaces/IDatePicker.Properties';
 
 export class DatePicker {
-    private htmlElement; // = document.querySelector('.input-date-picker');
-    // private txtInput;    // = <HTMLInputElement> this.htmlElement.querySelector('.input-txt');
-    // private btnInput;    //= this.htmlElement.querySelector('.input-btn');
-    // private nextBtn;     // = this.htmlElement.querySelector('.right-btn');
-    // private prevBtn;     // = this.htmlElement.querySelector('.left-btn');
-    // private monthYearLabel; // = this.htmlElement.querySelector('.month-display');
-    // private daysOuterElement; // = this.htmlElement.querySelector('.date-display tbody');
-    // private datePicker; // = this.htmlElement.querySelector('.date-picker');
-    // private todayClass; // = 'current-day';
-    // private selectedDayClass; // = 'selected-day';
-    // private daysTable;
+    private htmlElement;
+    private htmlTextInput;
+    private htmlButtonInput;
+    private htmlMonthYearLabel;
+    private htmlNextMonthButton;
+    private htmlPreviousMonthButton;
+    private htmlDatePicker;
+    private daysTableCollection;
     // private debouncedParseAndAddToOutput: any;
+
     private inputTxtClass: string;
     private inputsRowClass: string;
     private inputBtnClass: string;
@@ -31,6 +29,10 @@ export class DatePicker {
     constructor(private date: DateExtended, properties: IDatePickerProperties) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
+        this.setHTMLElementsAndCollections();
+        this.fillDayLabels();
+        this.fillDays();
+        this.fillMonthYearLabel();
         // this.debouncedParseAndAddToOutput = utils.debounce<string>((value) => {
         //     if (this.date.setDateFromString(value)) {
         //         this.fillMonthYearLabel();
@@ -38,18 +40,16 @@ export class DatePicker {
         //     }
         // }, 1200);
         //
-        // this.btnInput.addEventListener('click', () => {
-        //     animationsUtils.slideToggle(this.datePicker, 150, 'ease-in');
-        // });
-        //
-        // this.nextBtn.addEventListener('click', () => {
-        //     this.nextMonth();
-        // });
-        //
-        // this.prevBtn.addEventListener('click', () => {
-        //     this.previousMonth();
-        // });
-        //
+        this.htmlButtonInput.addEventListener('click', () => {
+            console.log(' calendar click');
+            //animationsUtils.slideToggle(this.htmlDatePicker, 150, 'ease-in');
+        });
+        this.htmlNextMonthButton.addEventListener('click', () => {
+            this.nextMonth();
+        });
+        this.htmlPreviousMonthButton.addEventListener('click', () => {
+            this.previousMonth();
+        });
         // this.txtInput.addEventListener('input', () => {
         //     this.debouncedParseAndAddToOutput(this.txtInput.value);
         // });
@@ -69,6 +69,24 @@ export class DatePicker {
         this.datePickerDivClass = properties.datePickerDivClass || 'date-picker';
     }
 
+    private setHTMLElementsAndCollections() {
+        const selectorDaysCellsTable = `.${this.datePickerDivClass} .${this.dayTableClass}` +
+            ` .${this.dayClass}`;
+        this.daysTableCollection = Array.from(this.htmlElement.querySelectorAll(selectorDaysCellsTable));
+        const selectorDatePicker = `.${this.datePickerDivClass}`;
+        this.htmlDatePicker = Array.from(this.htmlElement.querySelector(selectorDatePicker));
+        const selectorMonthYearLabel = `.${this.datePickerDivClass} .${this.monthDisplayClass}`;
+        this.htmlMonthYearLabel = this.htmlElement.querySelector(selectorMonthYearLabel);
+        const selectorPrevMonthBtn = `.${this.datePickerDivClass} .${this.buttonPreviousClass}`;
+        this.htmlPreviousMonthButton = this.htmlElement.querySelector(selectorPrevMonthBtn);
+        const selectorNextMonthBtn = `.${this.datePickerDivClass} .${this.buttonNextClass}`;
+        this.htmlNextMonthButton = this.htmlElement.querySelector(selectorNextMonthBtn);
+        const selectorTextInput = `.${this.inputsRowClass} .${this.inputTxtClass}`;
+        this.htmlTextInput = this.htmlElement.querySelector(selectorTextInput);
+        const selectorInputButton = `.${this.inputsRowClass} .${this.inputBtnClass}`;
+        this.htmlButtonInput = this.htmlElement.querySelector(selectorInputButton);
+    }
+
     private fillDayLabels() {
         const selectorLabelCellsStr = `.${this.datePickerDivClass} .${this.dayTableClass}` +
             ` .${this.dayLabelClass}`;
@@ -83,7 +101,6 @@ export class DatePicker {
     private fillElementWithValues(i, elem) {
         elem.textContent = i + '';
         this.addDayEventHandler(i, elem);
-        //this.setTodayAndSelectedClass(i, elem);
     }
 
     private fillElementWithEmptyValues(elem) {
@@ -96,10 +113,7 @@ export class DatePicker {
         const first = this.date.firstDayWeekOfMonth();
         const last = this.date.lastDayOfMonth() + first;
         let i = 1;
-        const selectorDaysCellsStr = `.${this.datePickerDivClass} .${this.dayTableClass}` +
-            ` .${this.dayClass}`;
-        const daysTable = Array.from(this.htmlElement.querySelectorAll(selectorDaysCellsStr));
-        daysTable.map((elem, index) => {
+        this.daysTableCollection.map((elem, index) => {
             if ((index >= first) && (index < last)) {
                 this.fillElementWithValues(i, elem);
                 i = i + 1;
@@ -112,11 +126,11 @@ export class DatePicker {
     private addDayEventHandler(i, elem) {
         elem.addEventListener('click', () => {
             console.log(i);
-            //this.daysTable[this.date.getDay() +
-            //this.date.firstDayWeekOfMonth() - 1].classList.remove(this.selectedDayClass);
+            //this.daysTableCollection[this.date.getDay() +
+            //this.date.firstDayWeekOfMonth() - 1].classList.remove(this.dayClass);
             this.date.setDay(i);
-            //this.txtInput.value = this.date.dateToStr();
-            //this.daysTable[this.date.getDay() +
+            this.htmlTextInput.value = this.date.dateToStr();
+            //this.daysTableCollection[this.date.getDay() +
             //this.date.firstDayWeekOfMonth() - 1].classList.add(this.selectedDayClass);
         });
     }
@@ -129,8 +143,6 @@ export class DatePicker {
             this.htmlElement.appendChild(inputsRow);
             const datePickerDiv = this.createDatePickerElem(properties);
             this.htmlElement.appendChild(datePickerDiv);
-            this.fillDays();
-            this.fillDayLabels();
         }
     }
 
@@ -150,10 +162,6 @@ export class DatePicker {
         dateDiv.appendChild(this.createMonthSelectionElement());
         dateDiv.appendChild(this.createDaysTable());
         return dateDiv;
-    }
-
-    private setHTMLElements() {
-        console.log('set properties');
     }
 
     private createMonthSelectionElement() {
@@ -200,62 +208,30 @@ export class DatePicker {
         return tHeader;
     }
 
-    private setTodayAndSelectedClass(i, elem) {
-        // if (this.date.isToday(i)) {
-        //     elem.classList.add(this.selectedDayClass);
-        //     if (this.date.isThisMonthYear()) {
-        //         elem.classList.add(this.todayClass);
-        //     }
-        // }
+    // private setTodayAndSelectedClass(i, elem) {
+    //     // if (this.date.isToday(i)) {
+    //     //     elem.classList.add(this.selectedDayClass);
+    //     //     if (this.date.isThisMonthYear()) {
+    //     //         elem.classList.add(this.todayClass);
+    //     //     }
+    //     // }
+    // }
+
+    private nextMonth() {
+        this.date.addMonth();
+        this.fillMonthYearLabel();
+        this.fillDays();
+        this.htmlTextInput.value = this.date.dateToStr();
     }
 
-    // private nextMonth() {
-    //     this.date.addMonth();
-    //     this.fillMonthYearLabel();
-    //     //this.fillDays();
-    //     this.txtInput.value = this.date.dateToStr();
-    // }
-    //
-    // private previousMonth() {
-    //     this.date.subtractMonth();
-    //     this.fillMonthYearLabel();
-    //     //this.fillDays();
-    //     this.txtInput.value = this.date.dateToStr();
-    // }
-    //
-    // private fillMonthYearLabel() {
-    //     // this.monthYearLabel.textContent = this.date.getMonthYearString();
-    // }
-}
+    private previousMonth() {
+        this.date.subtractMonth();
+        this.fillMonthYearLabel();
+        this.fillDays();
+        this.htmlTextInput.value = this.date.dateToStr();
+    }
 
-// this.txtInput = <HTMLInputElement> this.htmlElement.querySelector('.input-txt');
-// this.btnInput = this.htmlElement.querySelector('.input-btn');
-// this.nextBtn = this.htmlElement.querySelector('.right-btn');
-// this.prevBtn = this.htmlElement.querySelector('.left-btn');
-// this.monthYearLabel = this.htmlElement.querySelector('.month-display');
-// this.dayLabels = Array.from(this.htmlElement.querySelectorAll('.date-display thead td'));
-// this.daysOuterElement = this.htmlElement.querySelector('.date-display tbody');
-// this.datePicker = this.htmlElement.querySelector('.date-picker');
-// querySelectorString: string;
-// elementClass: string;
-// inputsRowClass?: string;
-// comboBoxClass?: string;
-// txtInputClass?: string;
-// btnInputClass?: string;
-// listClass?: string;
-// prevBtnClass?: string;
-// nextBtnClass?: string;
-// dayLabelsSelector?: string;
-// monthYearLabelClass?: string;
-// todayClass: string;
-// selectedDayClass: string;
-// private txtInput;    // = <HTMLInputElement> this.htmlElement.querySelector('.input-txt');
-// private btnInput;    //= this.htmlElement.querySelector('.input-btn');
-// private nextBtn;     // = this.htmlElement.querySelector('.right-btn');
-// private prevBtn;     // = this.htmlElement.querySelector('.left-btn');
-// private monthYearLabel; // = this.htmlElement.querySelector('.month-display');
-// private dayLabels;      // = Array.from(this.htmlElement.querySelectorAll('.date-display thead td'));
-// private daysOuterElement; // = this.htmlElement.querySelector('.date-display tbody');
-// private datePicker; // = this.htmlElement.querySelector('.date-picker');
-// private todayClass; // = 'current-day';
-// private selectedDayClass; // = 'selected-day';
+    private fillMonthYearLabel() {
+        this.htmlMonthYearLabel.textContent = this.date.getMonthYearString();
+    }
+}
