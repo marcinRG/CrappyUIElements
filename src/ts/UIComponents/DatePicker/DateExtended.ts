@@ -39,14 +39,14 @@ export class DateExtended {
         }
     }
 
-    public isToday(day: number) {
+    public isSelectedDay(day: number) {
         return (this.date.getDate() === day);
     }
 
-    public isThisMonthYear() {
+    public isToday(day: number) {
         const tempDate = new Date();
         return (this.date.getFullYear() === tempDate.getFullYear()) &&
-            (this.date.getMonth() === tempDate.getMonth());
+            (this.date.getMonth() === tempDate.getMonth() && (tempDate.getDate() === day));
     }
 
     public getMonthYearString() {

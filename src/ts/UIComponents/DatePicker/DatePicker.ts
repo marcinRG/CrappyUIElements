@@ -44,7 +44,7 @@ export class DatePicker {
         //
         this.htmlButtonInput.addEventListener('click', () => {
             console.log(' calendar click');
-            //animationsUtils.slideToggle(this.htmlDatePicker, 150, 'ease-in');
+            animationsUtils.slideToggle(this.htmlDatePicker, 150, 'ease-in');
         });
         this.htmlNextMonthButton.addEventListener('click', () => {
             this.nextMonth();
@@ -78,7 +78,7 @@ export class DatePicker {
             ` .${this.dayClass}`;
         this.daysTableCollection = Array.from(this.htmlElement.querySelectorAll(selectorDaysCellsTable));
         const selectorDatePicker = `.${this.datePickerDivClass}`;
-        this.htmlDatePicker = Array.from(this.htmlElement.querySelector(selectorDatePicker));
+        this.htmlDatePicker = this.htmlElement.querySelector(selectorDatePicker);
         const selectorMonthYearLabel = `.${this.datePickerDivClass} .${this.monthDisplayClass}`;
         this.htmlMonthYearLabel = this.htmlElement.querySelector(selectorMonthYearLabel);
         const selectorPrevMonthBtn = `.${this.datePickerDivClass} .${this.buttonPreviousClass}`;
@@ -118,8 +118,10 @@ export class DatePicker {
         const last = this.date.lastDayOfMonth() + first;
         let i = 1;
         this.daysTableCollection.map((elem, index) => {
+            this.removeDayClasses(elem);
             if ((index >= first) && (index < last)) {
                 this.fillElementWithValues(i, elem);
+                this.setTodayAndSelectedClass(i, elem);
                 i = i + 1;
             } else {
                 this.fillElementWithEmptyValues(elem);
@@ -127,9 +129,22 @@ export class DatePicker {
         });
     }
 
+    private removeDayClasses(elem) {
+        elem.classList.remove(this.todayClass);
+        elem.classList.remove(this.selectedDayClass);
+    }
+
+    private setTodayAndSelectedClass(i, elem) {
+        if (this.date.isToday(i)) {
+            elem.classList.add(this.todayClass);
+        }
+        if (this.date.isSelectedDay(i)) {
+            elem.classList.add(this.selectedDayClass);
+        }
+    }
+
     private addDayEventHandler(i, elem) {
         elem.addEventListener('click', () => {
-            console.log(i);
             this.daysTableCollection[this.date.getDay() +
             this.date.firstDayWeekOfMonth() - 1].classList.remove(this.selectedDayClass);
             this.date.setDay(i);
@@ -211,15 +226,6 @@ export class DatePicker {
         tHeader.appendChild(tRow);
         return tHeader;
     }
-
-    // private setTodayAndSelectedClass(i, elem) {
-    //     // if (this.date.isToday(i)) {
-    //     //     elem.classList.add(this.selectedDayClass);
-    //     //     if (this.date.isThisMonthYear()) {
-    //     //         elem.classList.add(this.todayClass);
-    //     //     }
-    //     // }
-    // }
 
     private nextMonth() {
         this.date.addMonth();
