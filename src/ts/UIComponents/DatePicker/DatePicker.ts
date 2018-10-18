@@ -25,6 +25,8 @@ export class DatePicker {
     private dayClass: string;
     private dayTableClass: string;
     private datePickerDivClass: string;
+    private todayClass: string;
+    private selectedDayClass: string;
 
     constructor(private date: DateExtended, properties: IDatePickerProperties) {
         this.setProperties(properties);
@@ -67,6 +69,8 @@ export class DatePicker {
         this.dayClass = properties.dayClass || 'cell-day';
         this.dayTableClass = properties.dayTableClass || 'days-table';
         this.datePickerDivClass = properties.datePickerDivClass || 'date-picker';
+        this.todayClass = properties.todayClass || 'today-date';
+        this.selectedDayClass = properties.selectedDayClass || 'current-date';
     }
 
     private setHTMLElementsAndCollections() {
@@ -126,12 +130,12 @@ export class DatePicker {
     private addDayEventHandler(i, elem) {
         elem.addEventListener('click', () => {
             console.log(i);
-            //this.daysTableCollection[this.date.getDay() +
-            //this.date.firstDayWeekOfMonth() - 1].classList.remove(this.dayClass);
+            this.daysTableCollection[this.date.getDay() +
+            this.date.firstDayWeekOfMonth() - 1].classList.remove(this.selectedDayClass);
             this.date.setDay(i);
             this.htmlTextInput.value = this.date.dateToStr();
-            //this.daysTableCollection[this.date.getDay() +
-            //this.date.firstDayWeekOfMonth() - 1].classList.add(this.selectedDayClass);
+            this.daysTableCollection[this.date.getDay() +
+            this.date.firstDayWeekOfMonth() - 1].classList.add(this.selectedDayClass);
         });
     }
 

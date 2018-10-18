@@ -85,6 +85,9 @@
       }
 
       .cell-day {
+        cursor: pointer;
+        border-top: 3px transparent solid;
+        border-bottom: 3px transparent solid;
         padding: .1em;
 
         &.today-date {
