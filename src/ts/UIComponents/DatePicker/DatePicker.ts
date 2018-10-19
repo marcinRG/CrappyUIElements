@@ -12,7 +12,7 @@ export class DatePicker {
     private htmlPreviousMonthButton;
     private htmlDatePicker;
     private daysTableCollection;
-    // private debouncedParseAndAddToOutput: any;
+    private debouncedParseAndAddToOutput: any;
 
     private inputTxtClass: string;
     private inputsRowClass: string;
@@ -35,15 +35,14 @@ export class DatePicker {
         this.fillDayLabels();
         this.fillDays();
         this.fillMonthYearLabel();
-        // this.debouncedParseAndAddToOutput = utils.debounce<string>((value) => {
-        //     if (this.date.setDateFromString(value)) {
-        //         this.fillMonthYearLabel();
-        //         this.fillDays();
-        //     }
-        // }, 1200);
-        //
+        this.debouncedParseAndAddToOutput = utils.debounce<string>((value) => {
+            if (this.date.setDateFromString(value)) {
+                this.fillMonthYearLabel();
+                this.fillDays();
+            }
+        }, 1200);
+
         this.htmlButtonInput.addEventListener('click', () => {
-            console.log(' calendar click');
             animationsUtils.slideToggle(this.htmlDatePicker, 150, 'ease-in');
         });
         this.htmlNextMonthButton.addEventListener('click', () => {
@@ -52,9 +51,9 @@ export class DatePicker {
         this.htmlPreviousMonthButton.addEventListener('click', () => {
             this.previousMonth();
         });
-        // this.txtInput.addEventListener('input', () => {
-        //     this.debouncedParseAndAddToOutput(this.txtInput.value);
-        // });
+        this.htmlTextInput.addEventListener('input', () => {
+            this.debouncedParseAndAddToOutput(this.htmlTextInput.value);
+        });
     }
 
     private setProperties(properties: IDatePickerProperties) {
@@ -121,7 +120,7 @@ export class DatePicker {
             this.removeDayClasses(elem);
             if ((index >= first) && (index < last)) {
                 this.fillElementWithValues(i, elem);
-                this.setTodayAndSelectedClass(i, elem);
+                this.setTodayAndSelectedDayClass(i, elem);
                 i = i + 1;
             } else {
                 this.fillElementWithEmptyValues(elem);
@@ -134,7 +133,7 @@ export class DatePicker {
         elem.classList.remove(this.selectedDayClass);
     }
 
-    private setTodayAndSelectedClass(i, elem) {
+    private setTodayAndSelectedDayClass(i, elem) {
         if (this.date.isToday(i)) {
             elem.classList.add(this.todayClass);
         }

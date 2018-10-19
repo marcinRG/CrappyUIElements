@@ -3,6 +3,7 @@ import {ComboBox} from './UIComponents/ComboBoxes/ComboBox/ComboBox';
 import {DynamicComboBox} from './UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
 import {DatePicker} from './UIComponents/DatePicker/DatePicker';
 import {DateExtended} from './UIComponents/DatePicker/DateExtended';
+import {ListWithCheckboxes} from './UIComponents/List/ListWithCheckboxes';
 
 const list = [
     'element 1',
@@ -69,4 +70,12 @@ const datePicker = new DatePicker(dateExt, {
     dayClass: 'cell-day',
     dayTableClass: 'days-table',
     datePickerDivClass: 'date-picker',
+});
+
+const listWithCheckBoxes = new ListWithCheckboxes({
+    querySelectorString: '',
+});
+
+const listWithCheckBoxes2 = new ListWithCheckboxes({
+    querySelectorString: '',
 });
