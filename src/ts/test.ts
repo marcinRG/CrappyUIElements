@@ -83,7 +83,7 @@ const list3 = [
 ];
 
 const txtArray3 = new PlainTextArrayWithSelectedValues(list3);
-console.log(txtArray3.values);
+const txtArray4 = new PlainTextArrayWithSelectedValues(list3, true);
 
 const listWithCheckBoxes = new ListWithCheckboxes({
     querySelectorString: '.list-w-checkboxes-1',
@@ -94,3 +94,13 @@ const listWithCheckBoxes = new ListWithCheckboxes({
     selectedElementClass: 'checked',
     valueClass: 'element',
 }, txtArray3);
+
+const listWithCheckBoxes2 = new ListWithCheckboxes({
+    querySelectorString: '.list-w-checkboxes-2',
+    elementClass: 'list-with-checkboxes-cuie',
+    listClass: 'list-elements',
+    checkBoxClass: 'check-box',
+    listElementClass: 'li-elem',
+    selectedElementClass: 'checked',
+    valueClass: 'element',
+}, txtArray4);

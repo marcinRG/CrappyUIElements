@@ -11,7 +11,6 @@ export class ListWithCheckboxes {
     private selectedElementClass;
 
     constructor(properties: IListWithCheckBoxesProperties, private selectableList: ISelectedValuesList<any>) {
-        console.log('constructor');
         this.setProperties(properties);
         this.createHTMLElements(properties);
     }
@@ -26,7 +25,6 @@ export class ListWithCheckboxes {
     }
 
     private createHTMLElements(properties: IListWithCheckBoxesProperties) {
-        console.log('create elements');
         this.htmlElement = document.querySelector(properties.querySelectorString);
         if (this.htmlElement) {
             this.htmlElement.classList.add(this.elementClass);
@@ -38,7 +36,6 @@ export class ListWithCheckboxes {
         const ul = document.createElement('ul');
         ul.classList.add(this.listClass);
         for (const elem of this.selectableList.values) {
-            console.log(elem);
             const text = this.selectableList.getTitle(elem);
             const uniqueId = this.selectableList.getUniqueID(elem);
             ul.appendChild(this.createListElement(text, uniqueId, this, this.toggleCheckBox));
@@ -47,12 +44,17 @@ export class ListWithCheckboxes {
     }
 
     private toggleCheckBox(value: any, elem: any) {
-        console.log(value);
-        console.log(elem);
+        const checkBox = elem.querySelector(`.${this.checkBoxClass}`);
+        const checked = this.checkBoxIsChecked(checkBox);
+        if (!this.selectableList.multipleValues && (!checked)) {
+            this.unCheckAllCheckBoxes();
+        }
+        this.toggleCheckBoxView(checked, checkBox);
+        const element = this.selectableList.values[this.selectableList.getIndex(value)];
+        this.selectableList.addRemoveValue(element);
     }
 
     private createListElement(value: string, uniqueID: string, listwithCheckboxes: ListWithCheckboxes, callback: any) {
-        console.log('value:' + value);
         const innerHTML = `<span class="${this.checkBoxClass}"></span>
 <span class="${this.valueClass}">${value}</span>`.trim();
         const li = document.createElement('li');
@@ -64,14 +66,23 @@ export class ListWithCheckboxes {
         return li;
     }
 
-    private toggleCheckBoxElement(elem) {
-        const checkBox = elem.querySelector(`.${this.checkBoxClass}`);
-        if (checkBox) {
-            if (checkBox.classList.contains(this.selectedElementClass)) {
-                checkBox.classList.remove(this.selectedElementClass);
-            } else {
-                checkBox.classList.add(this.selectedElementClass);
-            }
+    private unCheckAllCheckBoxes() {
+        const checkBoxes = <HTMLElement[]>Array.from(this.htmlElement.querySelectorAll
+        (`.${this.listClass} .${this.checkBoxClass}`));
+        for (const checkBox of checkBoxes) {
+            checkBox.classList.remove(this.selectedElementClass);
+        }
+    }
+
+    private checkBoxIsChecked(checkBoxElement) {
+        return checkBoxElement.classList.contains(this.selectedElementClass);
+    }
+
+    private toggleCheckBoxView(checked, checkBox) {
+        if (checked) {
+            checkBox.classList.remove(this.selectedElementClass);
+        } else {
+            checkBox.classList.add(this.selectedElementClass);
         }
     }
 
