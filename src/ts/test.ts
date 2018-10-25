@@ -1,10 +1,12 @@
-import {PlainTextArray} from './misc/PlainTextArray';
+import {PlainTextArrayWithFilter} from './models/PlainTextArrayWithFilter';
 import {ComboBox} from './UIComponents/ComboBoxes/ComboBox/ComboBox';
 import {DynamicComboBox} from './UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
 import {DatePicker} from './UIComponents/DatePicker/DatePicker';
-import {DateExtended} from './UIComponents/DatePicker/DateExtended';
+import {DateExtended} from './models/DateExtended';
 import {ListWithCheckboxes} from './UIComponents/List/ListWithCheckboxes';
+import {PlainTextArrayWithSelectedValues} from './models/PlainTextArrayWithSelectedValues';
 
+//comboBox
 const list = [
     'element 1',
     'element 2',
@@ -18,7 +20,15 @@ const list = [
     'element 10',
     'element 11',
 ];
+const txtArray = new PlainTextArrayWithFilter(list);
+const comboBox = new ComboBox({
+    elementClass: 'combo-box-cuie',
+    querySelectorString: '.combo-box-1',
+    listElementClass: 'li-elem',
+    maxSize: 5,
+}, txtArray);
 
+//comboBox with autocomplete
 const list2 = [
     'lorem 1',
     'ipsum 2',
@@ -32,19 +42,7 @@ const list2 = [
     'dlement 10',
     'element 11',
 ];
-
-const txtArray = new PlainTextArray(list);
-const txtArray2 = new PlainTextArray(list2);
-
-//comboBox
-const comboBox = new ComboBox({
-    elementClass: 'combo-box-cuie',
-    querySelectorString: '.combo-box-1',
-    listElementClass: 'li-elem',
-    maxSize: 5,
-}, txtArray);
-
-//comboBox with autocomplete
+const txtArray2 = new PlainTextArrayWithFilter(list2);
 const comboBox2 = new DynamicComboBox({
     elementClass: 'combo-box-cuie',
     querySelectorString: '.combo-box-2',
@@ -57,7 +55,7 @@ const daysLabels = ['Nie', 'Pon', 'Wto', 'Sro', 'Czw', 'Pio', 'Sob'];
 const monthsLabels = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
     'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 const dateExt = new DateExtended(daysLabels, monthsLabels);
-const datePicker = new DatePicker(dateExt, {
+const datePicker = new DatePicker({
     querySelectorString: '.date-picker-1',
     elementClass: 'date-picker-cuie',
     todayClass: 'today-date',
@@ -70,12 +68,29 @@ const datePicker = new DatePicker(dateExt, {
     dayClass: 'cell-day',
     dayTableClass: 'days-table',
     datePickerDivClass: 'date-picker',
-});
+}, dateExt);
+
+//list with checkboxes
+const list3 = [
+    'element 1',
+    'other elemment',
+    'another one',
+    'smthg else',
+    'next item',
+    'item i',
+    'other item x',
+    'text value',
+];
+
+const txtArray3 = new PlainTextArrayWithSelectedValues(list3);
+console.log(txtArray3.values);
 
 const listWithCheckBoxes = new ListWithCheckboxes({
-    querySelectorString: '',
-});
-
-const listWithCheckBoxes2 = new ListWithCheckboxes({
-    querySelectorString: '',
-});
+    querySelectorString: '.list-w-checkboxes-1',
+    elementClass: 'list-with-checkboxes-cuie',
+    listClass: 'list-elements',
+    checkBoxClass: 'check-box',
+    listElementClass: 'li-elem',
+    selectedElementClass: 'checked',
+    valueClass: 'element',
+}, txtArray3);

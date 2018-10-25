@@ -6,6 +6,4 @@ export interface ISelectableList<T> {
     getIndex(uniqueID: string): number;
 
     getTitle(elem: T): string;
-
-    filteredValues(filterTxt: string, maxLength?: number): T[];
 }

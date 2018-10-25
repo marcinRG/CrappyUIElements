@@ -1,7 +1,6 @@
-import {animationsUtils} from '../../../Utils/Animation.Utilities';
-import {ISelectableList} from '../../../Interfaces/ISelectableList';
 import {IComboBoxProperties} from '../../../Interfaces/IComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
+import {IFilteredValuesList} from '../../../Interfaces/IFilteredValuesList';
 
 export class ComboBox {
     private htmlElement;
@@ -14,7 +13,7 @@ export class ComboBox {
     private selectedElement: any;
     private changeBtnClass;
 
-    constructor(properties: IComboBoxProperties, private selectableList: ISelectableList<any>) {
+    constructor(properties: IComboBoxProperties, private selectableList: IFilteredValuesList<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         const values = this.selectableList.values;

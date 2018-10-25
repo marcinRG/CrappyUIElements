@@ -1,8 +1,8 @@
 import {animationsUtils} from '../../../Utils/Animation.Utilities';
-import {ISelectableList} from '../../../Interfaces/ISelectableList';
 import {IComboBoxProperties} from '../../../Interfaces/IComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
 import * as utils from '../../../Utils/Utilities';
+import {IFilteredValuesList} from '../../../Interfaces/IFilteredValuesList';
 
 export class DynamicComboBox {
     private htmlElement;
@@ -16,7 +16,7 @@ export class DynamicComboBox {
     private selectedElement: any;
     private debouncedInputTxt: any;
 
-    constructor(properties: IComboBoxProperties, private selectableList: ISelectableList<any>) {
+    constructor(properties: IComboBoxProperties, private selectableList: IFilteredValuesList<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         CBoxUtils.createListElements(this.selectableList, this.selectableList.values, this.listElements,

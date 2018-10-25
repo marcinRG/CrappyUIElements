@@ -1,4 +1,4 @@
-import {DateExtended} from './DateExtended';
+import {DateExtended} from '../../models/DateExtended';
 import {animationsUtils} from './../../Utils/Animation.Utilities';
 import * as utils from './../../Utils/Utilities';
 import {IDatePickerProperties} from '../../Interfaces/IDatePicker.Properties';
@@ -28,7 +28,7 @@ export class DatePicker {
     private todayClass: string;
     private selectedDayClass: string;
 
-    constructor(private date: DateExtended, properties: IDatePickerProperties) {
+    constructor(properties: IDatePickerProperties, private date: DateExtended) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.setHTMLElementsAndCollections();
