@@ -1,0 +1,31 @@
+@import '../variables';
+@import '../mixins';
+
+.spinner-cuie {
+
+  @include input-fields;
+
+  .input-txt {
+    @include input-text;
+    width: 90%;
+  }
+
+  .button-up {
+    @include spinner-button;
+    border-bottom: 1px solid $cui-border-color-lighter;
+
+    &::before {
+      display: inline-block;
+      content: '\025B2';
+    }
+  }
+
+  .button-down {
+    @include spinner-button;
+
+    &::before {
+      content: '\025BC';
+    }
+  }
+
+}

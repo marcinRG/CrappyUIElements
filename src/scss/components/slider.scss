@@ -1,0 +1,36 @@
+@import '../variables';
+@import '../mixins';
+
+.slider-cuie {
+  @include input-fields;
+  position: relative;
+
+  .beam {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid $cui-border-color;
+    height: .5em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+
+    .beam-fill {
+      width: 50%;
+      height: 100%;
+      background-color: $cui-element-btn-color;
+    }
+  }
+
+  .pointer {
+    height: 1.5em;
+    background-color: $cui-element-btn-color;
+    border: 1px solid $cui-border-color;
+    width: 5px;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+    left: 50%;
+  }
+
+}
