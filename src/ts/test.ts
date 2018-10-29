@@ -117,7 +117,7 @@ const list4 = [
     'text value',
 ];
 const iterableArray = new IterableTextArray(list4);
-const iterableNumbers = new IterableNumbers(1, 100, 1);
+const iterableNumbers = new IterableNumbers(10, 1, 100, 1);
 
 const spinner = new Spinner({
     querySelectorString: '.spinner-1',

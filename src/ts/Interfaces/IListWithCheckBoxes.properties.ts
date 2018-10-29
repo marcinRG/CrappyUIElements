@@ -1,6 +1,6 @@
-export interface IListWithCheckBoxesProperties {
-    querySelectorString: string;
-    elementClass: string;
+import {IComponentProperties} from './IComponent.Properties';
+
+export interface IListWithCheckBoxesProperties extends IComponentProperties {
     listClass: string;
     listElementClass: string;
     checkBoxClass: string;
