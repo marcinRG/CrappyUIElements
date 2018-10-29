@@ -1,6 +1,6 @@
-export interface IDatePickerProperties {
-    querySelectorString: string;
-    elementClass: string;
+import {IComponentProperties} from './IComponent.Properties';
+
+export interface IDatePickerProperties extends IComponentProperties{
     //inputs row
     inputsRowClass?: string;
     txtInputClass?: string;

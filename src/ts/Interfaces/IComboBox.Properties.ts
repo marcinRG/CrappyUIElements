@@ -1,6 +1,6 @@
-export interface IComboBoxProperties {
-    querySelectorString: string;
-    elementClass: string;
+import {IComponentProperties} from './IComponent.Properties';
+
+export interface IComboBoxProperties extends IComponentProperties {
     inputsRowClass?: string;
     comboBoxClass?: string;
     txtInputClass?: string;

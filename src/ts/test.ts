@@ -5,6 +5,9 @@ import {DatePicker} from './UIComponents/DatePicker/DatePicker';
 import {DateExtended} from './models/DateExtended';
 import {ListWithCheckboxes} from './UIComponents/List/ListWithCheckboxes';
 import {PlainTextArrayWithSelectedValues} from './models/PlainTextArrayWithSelectedValues';
+import {Spinner} from './UIComponents/Spinner/Spinner';
+import {IterableTextArray} from './models/IterableTextArray';
+import {IterableNumbers} from './models/IterableNumbers';
 
 //comboBox
 const list = [
@@ -104,3 +107,24 @@ const listWithCheckBoxes2 = new ListWithCheckboxes({
     selectedElementClass: 'checked',
     valueClass: 'element',
 }, txtArray4);
+
+const list4 = [
+    'element 1',
+    'other elemment',
+    'another one',
+    'item i',
+    'other item x',
+    'text value',
+];
+const iterableArray = new IterableTextArray(list4);
+const iterableNumbers = new IterableNumbers(1, 100, 1);
+
+const spinner = new Spinner({
+    querySelectorString: '.spinner-1',
+    elementClass: 'spinner-cuie',
+}, iterableArray);
+
+const spinner2 = new Spinner({
+    querySelectorString: '.spinner-2',
+    elementClass: 'spinner-cuie',
+}, iterableNumbers);
