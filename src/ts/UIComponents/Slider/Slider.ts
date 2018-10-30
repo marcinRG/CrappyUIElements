@@ -1,4 +1,5 @@
 import {ISliderProperties} from '../../Interfaces/ISlider.Properties';
+import {IValueTransformation} from '../../Interfaces/IValueTransformation';
 
 export class Slider {
 
@@ -10,43 +11,63 @@ export class Slider {
     private pointerWidth: number;
     private isMouseDown: boolean = false;
 
+    private minWidth;
+    private maxWidth;
+
     private htmlElement;
     private htmlPointerElement;
     private htmlFieldElement;
     private htmlBeamFillElement;
 
-    constructor(properties: ISliderProperties) {
+    constructor(properties: ISliderProperties, private minMaxValue: IValueTransformation<any>) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.setHTMLElements();
+        this.setMinMaxWidth();
+        this.changePointerPositionAndFillBeamLength((this.minWidth +
+            this.minMaxValue.transformation(this.minWidth, this.maxWidth)));
 
         this.htmlFieldElement.addEventListener('click', (event: MouseEvent) => {
-            this.changePointerPositionAndFillBeamLength(event);
+            this.changePointerPositionAndFillBeamLength(event.clientX);
+            this.minMaxValue.value = this.minMaxValue.reverseTransformation(
+                event.clientX, this.minWidth, this.maxWidth);
         });
 
-        this.htmlFieldElement.addEventListener('mousemove', (event: MouseEvent) =>{
+        window.addEventListener('resize', () => {
+            this.setMinMaxWidth();
+            this.changePointerPositionAndFillBeamLength((this.minWidth +
+                this.minMaxValue.transformation(this.minWidth, this.maxWidth)));
+        });
+
+        this.htmlFieldElement.addEventListener('mousemove', (event: MouseEvent) => {
             if (this.isMouseDown) {
-                this.changePointerPositionAndFillBeamLength(event);
+                this.changePointerPositionAndFillBeamLength(event.clientX);
+                this.minMaxValue.value = this.minMaxValue.reverseTransformation(
+                    event.clientX, this.minWidth, this.maxWidth);
             }
         });
 
         this.htmlPointerElement.addEventListener('mousedown', () => {
             this.isMouseDown = true;
         });
-        this.htmlPointerElement.addEventListener('mouseup', ()=> {
+
+        this.htmlPointerElement.addEventListener('mouseup', () => {
             this.isMouseDown = false;
-        })
+        });
     }
 
-    private changePointerPositionAndFillBeamLength(event: MouseEvent) {
-        const len = this.calculatePosition(event);
-        this.htmlPointerElement.style.left = len + 'px';
-        this.htmlBeamFillElement.style.width = len + 'px';
-    }
-
-    private calculatePosition(event: MouseEvent) {
-        return event.clientX - this.htmlFieldElement.offsetLeft -
+    private setMinMaxWidth() {
+        this.minWidth = this.htmlFieldElement.offsetLeft + Math.floor(this.pointerWidth / 2);
+        this.maxWidth = this.htmlFieldElement.offsetLeft + this.htmlFieldElement.offsetWidth -
             Math.floor(this.pointerWidth / 2);
+    }
+
+    private changePointerPositionAndFillBeamLength(x: number) {
+        if (x >= this.minWidth && x <= this.maxWidth) {
+            const len = x - this.minWidth;
+            this.htmlPointerElement.style.left = len + 'px';
+            this.htmlBeamFillElement.style.width = len + 'px';
+        }
     }
 
     private setProperties(properties: ISliderProperties) {
@@ -81,5 +102,4 @@ export class Slider {
         const selectorBeamFill = `.${this.beamFillClass}`;
         this.htmlBeamFillElement = this.htmlElement.querySelector(selectorBeamFill);
     }
-
 }

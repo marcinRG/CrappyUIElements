@@ -9,6 +9,7 @@ import {Spinner} from './UIComponents/Spinner/Spinner';
 import {IterableTextArray} from './models/IterableTextArray';
 import {IterableNumbers} from './models/IterableNumbers';
 import {Slider} from './UIComponents/Slider/Slider';
+import {MinMaxValue} from './models/MinMaxValue';
 
 //comboBox
 const list = [
@@ -130,8 +131,9 @@ const spinner2 = new Spinner({
     elementClass: 'spinner-cuie',
 }, iterableNumbers);
 
+const minMax = new MinMaxValue(50, 0, 100);
 const slider = new Slider({
     querySelectorString: '.slider-1',
     elementClass: 'slider-cuie',
     pointerWidth: 5,
-});
+}, minMax);
