@@ -8,6 +8,7 @@ import {PlainTextArrayWithSelectedValues} from './models/PlainTextArrayWithSelec
 import {Spinner} from './UIComponents/Spinner/Spinner';
 import {IterableTextArray} from './models/IterableTextArray';
 import {IterableNumbers} from './models/IterableNumbers';
+import {Slider} from './UIComponents/Slider/Slider';
 
 //comboBox
 const list = [
@@ -128,3 +129,9 @@ const spinner2 = new Spinner({
     querySelectorString: '.spinner-2',
     elementClass: 'spinner-cuie',
 }, iterableNumbers);
+
+const slider = new Slider({
+    querySelectorString: '.slider-1',
+    elementClass: 'slider-cuie',
+    pointerWidth: 5,
+});
