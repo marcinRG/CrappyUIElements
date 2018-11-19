@@ -2,8 +2,8 @@ import {IFilteredValuesList} from '../Interfaces/IFilteredValuesList';
 import {PlainTextArray} from './PlainTextArray';
 
 export class PlainTextArrayWithFilter extends PlainTextArray implements IFilteredValuesList<string> {
-    constructor(values: string[]) {
-        super(values);
+    constructor(values: string[], selectedValues: string | string[] = null) {
+        super(values, selectedValues);
     }
 
     public filteredValues(filterTxt: string, maxLength?: number) {

@@ -10,7 +10,6 @@ export class ComboBox {
     private listElementClass;
     private maxLength;
     private listVisible = false;
-    private selectedElement: any;
     private changeBtnClass;
 
     constructor(properties: IComboBoxProperties, private selectableList: IFilteredValuesList<any>) {
@@ -42,10 +41,9 @@ export class ComboBox {
 
     private changeToSelected(ID: string) {
         const index = this.selectableList.getIndex(ID);
-        const elem = this.selectableList.values[index];
-        this.selectedElement = elem;
-        if (this.selectedElement) {
-            this.txtInput.value = this.selectableList.getTitle(elem);
+        this.selectableList.selectedValues = this.selectableList.values[index];
+        if (this.selectableList.selectedValues) {
+            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selectedValues);
             this.hideAfterSelected();
         }
     }

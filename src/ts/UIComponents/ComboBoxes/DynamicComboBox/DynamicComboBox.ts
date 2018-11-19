@@ -13,7 +13,6 @@ export class DynamicComboBox {
     private maxLength;
     private listVisible = false;
     private changeBtnClass;
-    private selectedElement: any;
     private debouncedInputTxt: any;
 
     constructor(properties: IComboBoxProperties, private selectableList: IFilteredValuesList<any>) {
@@ -61,10 +60,9 @@ export class DynamicComboBox {
 
     private changeToSelected(ID: string) {
         const index = this.selectableList.getIndex(ID);
-        const elem = this.selectableList.values[index];
-        this.selectedElement = elem;
-        if (this.selectedElement) {
-            this.txtInput.value = this.selectableList.getTitle(elem);
+        this.selectableList.selectedValues = this.selectableList.values[index];
+        if (this.selectableList.selectedValues) {
+            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selectedValues);
             const values = this.selectableList.filteredValues(this.txtInput.value, 0);
             CBoxUtils.createListElements(this.selectableList, values, this.listElements,
                 this.listElementClass, this, this.changeToSelected);

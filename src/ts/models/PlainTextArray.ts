@@ -1,7 +1,8 @@
 import {ISelectableList} from '../Interfaces/ISelectableList';
 
 export class PlainTextArray implements ISelectableList<string> {
-    constructor(public values: string[]) {
+
+    constructor(public values: string[], public selectedValues = null) {
     }
 
     public getIndex(uniqueID: string): number {
