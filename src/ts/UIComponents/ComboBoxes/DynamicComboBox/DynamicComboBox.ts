@@ -15,7 +15,7 @@ export class DynamicComboBox {
     private changeBtnClass;
     private debouncedInputTxt: any;
 
-    constructor(properties: IComboBoxProperties, private selectableList: IFilteredValuesList<any>) {
+    constructor(properties: IComboBoxProperties, public selectableList: IFilteredValuesList<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         CBoxUtils.createListElements(this.selectableList, this.selectableList.values, this.listElements,

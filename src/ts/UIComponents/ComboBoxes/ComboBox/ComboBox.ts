@@ -12,7 +12,7 @@ export class ComboBox {
     private listVisible = false;
     private changeBtnClass;
 
-    constructor(properties: IComboBoxProperties, private selectableList: IFilteredValuesList<any>) {
+    constructor(properties: IComboBoxProperties, public selectableList: IFilteredValuesList<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         const values = this.selectableList.values;

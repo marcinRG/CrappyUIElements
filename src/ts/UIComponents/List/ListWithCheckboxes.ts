@@ -10,7 +10,7 @@ export class ListWithCheckboxes {
     private valueClass;
     private selectedElementClass;
 
-    constructor(properties: IListWithCheckBoxesProperties, private selectableList: ISelectedValuesList<any>) {
+    constructor(properties: IListWithCheckBoxesProperties, public selectableList: ISelectedValuesList<any>) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
     }
@@ -67,7 +67,7 @@ export class ListWithCheckboxes {
     }
 
     private unCheckAllCheckBoxes() {
-        const checkBoxes = <HTMLElement[]>Array.from(this.htmlElement.querySelectorAll
+        const checkBoxes = <HTMLElement[]> Array.from(this.htmlElement.querySelectorAll
         (`.${this.listClass} .${this.checkBoxClass}`));
         for (const checkBox of checkBoxes) {
             checkBox.classList.remove(this.selectedElementClass);

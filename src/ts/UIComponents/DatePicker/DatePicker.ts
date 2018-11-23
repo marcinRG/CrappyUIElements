@@ -28,7 +28,7 @@ export class DatePicker {
     private todayClass: string;
     private selectedDayClass: string;
 
-    constructor(properties: IDatePickerProperties, private date: DateExtended) {
+    constructor(properties: IDatePickerProperties, public date: DateExtended) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.setHTMLElementsAndCollections();

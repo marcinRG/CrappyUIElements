@@ -2,6 +2,7 @@ import {IIterable} from '../../Interfaces/IIterable';
 import {ISpinnerProperties} from '../../Interfaces/ISpinner.Properties';
 
 export class Spinner {
+    public htmlInputText;
     private elementClass: string;
     private txtInputClass: string;
     private upButtonClass: string;
@@ -11,20 +12,27 @@ export class Spinner {
     private htmlElement;
     private htmlButtonUp;
     private htmlButtonDown;
-    private htmlInputText;
 
-    constructor(properties: ISpinnerProperties, private iterable: IIterable<any>) {
+    constructor(properties: ISpinnerProperties, public iterable: IIterable<any>) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.setHTMLElements();
         this.htmlInputText.value = this.iterable.value;
         this.htmlButtonUp.addEventListener('click', () => {
-            this.htmlInputText.value = this.iterable.next() + '';
+            this.nextValue();
         });
 
         this.htmlButtonDown.addEventListener('click', () => {
-            this.htmlInputText.value = this.iterable.previous() + '';
+            this.previousValue();
         });
+    }
+
+    public nextValue() {
+        this.htmlInputText.value = this.iterable.next() + '';
+    }
+
+    public previousValue() {
+        this.htmlInputText.value = this.iterable.previous() + '';
     }
 
     private createHTMLElements(properties: ISpinnerProperties) {

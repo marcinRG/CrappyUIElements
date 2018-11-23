@@ -19,7 +19,7 @@ export class Slider {
     private htmlFieldElement;
     private htmlBeamFillElement;
 
-    constructor(properties: ISliderProperties, private minMaxValue: IValueTransformation<any>) {
+    constructor(properties: ISliderProperties, public minMaxValue: IValueTransformation<any>) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.setHTMLElements();

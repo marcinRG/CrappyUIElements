@@ -4,10 +4,30 @@
 // import {DatePicker} from './UIComponents/DatePicker/DatePicker';
 // import {DateExtended} from './models/DateExtended';
 // import {ListWithCheckboxes} from './UIComponents/List/ListWithCheckboxes';
-// import {PlainTextArrayWithSelectedValues} from './models/PlainTextArrayWithSelectedValues';
-// import {Spinner} from './UIComponents/Spinner/Spinner';
-// import {IterableTextArray} from './models/IterableTextArray';
-// import {IterableNumbers} from './models/IterableNumbers';
+import {PlainTextArrayWithSelectedValues} from './models/PlainTextArrayWithSelectedValues';
+import {DirectionsRadioBtnsGroup} from './UIComponents/Misc/DirectionsRadioBtnsGroup';
+import {Observer} from 'rxjs/Observer';
+import {RxDirectionsRadioBtnsGroup} from './RxUIComponents/Misc/RxDirectionsRadioBtnsGroup';
+import {Spinner} from './UIComponents/Spinner/Spinner';
+import {IterableTextArray} from './models/IterableTextArray';
+import {IterableNumbers} from './models/IterableNumbers';
+import {RxSpinner} from './RxUIComponents/Spinner/RxSpinner';
+
+class MyObserver implements Observer<any> {
+    public next(value: any) {
+        console.log('observer ok');
+        console.log(value);
+    }
+
+    public error(err: any) {
+        console.log('error ocurred' + err);
+    }
+
+    public complete() {
+        console.log('completed');
+    }
+}
+
 // import {Slider} from './UIComponents/Slider/Slider';
 // import {MinMaxValue} from './models/MinMaxValue';
 //
@@ -110,26 +130,36 @@
 //     valueClass: 'element',
 // }, txtArray4);
 //
-// const list4 = [
-//     'element 1',
-//     'other elemment',
-//     'another one',
-//     'item i',
-//     'other item x',
-//     'text value',
-// ];
-// const iterableArray = new IterableTextArray(list4);
-// const iterableNumbers = new IterableNumbers(10, 1, 100, 1);
-//
-// const spinner = new Spinner({
-//     querySelectorString: '.spinner-1',
-//     elementClass: 'spinner-cuie',
-// }, iterableArray);
-//
-// const spinner2 = new Spinner({
-//     querySelectorString: '.spinner-2',
-//     elementClass: 'spinner-cuie',
-// }, iterableNumbers);
+const list4 = [
+    'element 1',
+    'other elemment',
+    'another one',
+    'item i',
+    'other item x',
+    'text value',
+];
+const iterableArray = new IterableTextArray(list4);
+const iterableNumbers = new IterableNumbers(10, 1, 100, 1);
+const iterableNumbers2 = new IterableNumbers(1, 1, 20, 1);
+
+const spinner = new Spinner({
+    querySelectorString: '.spinner-1',
+    elementClass: 'spinner-cuie',
+}, iterableArray);
+
+const spinner2 = new Spinner({
+    querySelectorString: '.spinner-2',
+    elementClass: 'spinner-cuie',
+}, iterableNumbers);
+
+const spinner3 = new RxSpinner({
+    querySelectorString: '.spinner-3',
+    elementClass: 'spinner-cuie',
+}, iterableNumbers2);
+
+const ob = new MyObserver();
+spinner3.subscribe(ob);
+
 //
 // const minMax = new MinMaxValue(50, 0, 100);
 // const slider = new Slider({
@@ -137,3 +167,33 @@
 //     elementClass: 'slider-cuie',
 //     pointerWidth: 5,
 // }, minMax);
+
+const list = [
+    'element 1',
+    'element 2',
+    'element 3',
+    'element 4',
+    'element 5',
+];
+const txtArray3 = new PlainTextArrayWithSelectedValues(list);
+const directionsRadioBtnsGroup = new DirectionsRadioBtnsGroup({
+    elementClass: 'radio-btn-group-cuie',
+    querySelectorString: '.radio-buttons-gr-1',
+    radioGroupName: 'group-1',
+}, txtArray3);
+
+const list2 = [
+    'element w',
+    'element x',
+    'element y',
+    'element z',
+];
+const txtArray2 = new PlainTextArrayWithSelectedValues(list2);
+
+const rxdirections = new RxDirectionsRadioBtnsGroup({
+    elementClass: 'radio-btn-group-cuie',
+    querySelectorString: '.radio-buttons-gr-2',
+    radioGroupName: 'group-2',
+}, txtArray2);
+const ob2 = new MyObserver();
+rxdirections.subscribe(ob2);
