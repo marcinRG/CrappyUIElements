@@ -7,6 +7,7 @@
 }
 
 @mixin block-border-box {
+  @include set-to-zero;
   box-sizing: border-box;
   display: block;
 }
@@ -33,11 +34,11 @@
 }
 
 @mixin spinner-button {
+  @include set-to-zero;
   box-sizing: border-box;
   outline: 0;
   height: 50%;
-  display: block;
-  width: 10%;
+  width: 100%;
   font-size: .5em;
   cursor: pointer;
   color: black;

@@ -1,9 +1,9 @@
-// import {PlainTextArrayWithFilter} from './models/PlainTextArrayWithFilter';
-// import {ComboBox} from './UIComponents/ComboBoxes/ComboBox/ComboBox';
-// import {DynamicComboBox} from './UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
-// import {DatePicker} from './UIComponents/DatePicker/DatePicker';
-// import {DateExtended} from './models/DateExtended';
-// import {ListWithCheckboxes} from './UIComponents/List/ListWithCheckboxes';
+import {PlainTextArrayWithFilter} from './models/PlainTextArrayWithFilter';
+import {ComboBox} from './UIComponents/ComboBoxes/ComboBox/ComboBox';
+import {DynamicComboBox} from './UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
+import {DatePicker} from './UIComponents/DatePicker/DatePicker';
+import {DateExtended} from './models/DateExtended';
+import {ListWithCheckboxes} from './UIComponents/List/ListWithCheckboxes';
 import {PlainTextArrayWithSelectedValues} from './models/PlainTextArrayWithSelectedValues';
 import {DirectionsRadioBtnsGroup} from './UIComponents/Misc/DirectionsRadioBtnsGroup';
 import {Observer} from 'rxjs/Observer';
@@ -12,6 +12,12 @@ import {Spinner} from './UIComponents/Spinner/Spinner';
 import {IterableTextArray} from './models/IterableTextArray';
 import {IterableNumbers} from './models/IterableNumbers';
 import {RxSpinner} from './RxUIComponents/Spinner/RxSpinner';
+import {Slider} from './UIComponents/Slider/Slider';
+import {MinMaxValue} from './models/MinMaxValue';
+import {RxSlider} from './RxUIComponents/Slider/RxSlider';
+import {RxListWithCheckBoxes} from './RxUIComponents/List/RxListWithCheckBoxes';
+import {RxDatePicker} from './RxUIComponents/DatePicker/RxDatePicker';
+import {RxComboBox} from './RxUIComponents/ComboBoxes/RxComboBox';
 
 class MyObserver implements Observer<any> {
     public next(value: any) {
@@ -28,107 +34,145 @@ class MyObserver implements Observer<any> {
     }
 }
 
-// import {Slider} from './UIComponents/Slider/Slider';
-// import {MinMaxValue} from './models/MinMaxValue';
+//comboBox
+const list11 = [
+    'element 1',
+    'element 2',
+    'element 3',
+    'element 4',
+    'element 5',
+    'element 6',
+    'element 7',
+    'element 8',
+    'element 9',
+    'element 10',
+    'element 11',
+];
+const txtArray11 = new PlainTextArrayWithFilter(list11);
+const comboBox = new ComboBox({
+    elementClass: 'combo-box-cuie',
+    querySelectorString: '.combo-box-1',
+    listElementClass: 'li-elem',
+    maxSize: 5,
+}, txtArray11);
+
+//comboBox with autocomplete
+const list12 = [
+    'lorem 1',
+    'ipsum 2',
+    'dolor sit amet',
+    'consectetur adipisicing',
+    'lement 5',
+    'loement 6',
+    'element 7',
+    'element 8',
+    'dlement 9',
+    'dlement 10',
+    'element 11',
+];
+const txtArray12 = new PlainTextArrayWithFilter(list12);
+const comboBox2 = new DynamicComboBox({
+    elementClass: 'combo-box-cuie',
+    querySelectorString: '.combo-box-2',
+    listElementClass: 'li-elem',
+    maxSize: 5,
+}, txtArray12);
+
+const txtArray13 = new PlainTextArrayWithFilter(list12);
+const rxComboBox = new RxComboBox({
+    elementClass: 'combo-box-cuie',
+    querySelectorString: '.combo-box-3',
+    listElementClass: 'li-elem',
+    maxSize: 5,
+}, txtArray13);
+const comboBoxOb = new MyObserver();
+rxComboBox.subscribe(comboBoxOb);
+
 //
-// //comboBox
-// const list = [
-//     'element 1',
-//     'element 2',
-//     'element 3',
-//     'element 4',
-//     'element 5',
-//     'element 6',
-//     'element 7',
-//     'element 8',
-//     'element 9',
-//     'element 10',
-//     'element 11',
-// ];
-// const txtArray = new PlainTextArrayWithFilter(list);
-// const comboBox = new ComboBox({
-//     elementClass: 'combo-box-cuie',
-//     querySelectorString: '.combo-box-1',
-//     listElementClass: 'li-elem',
-//     maxSize: 5,
-// }, txtArray);
-//
-// //comboBox with autocomplete
-// const list2 = [
-//     'lorem 1',
-//     'ipsum 2',
-//     'dolor sit amet',
-//     'consectetur adipisicing',
-//     'lement 5',
-//     'loement 6',
-//     'element 7',
-//     'element 8',
-//     'dlement 9',
-//     'dlement 10',
-//     'element 11',
-// ];
-// const txtArray2 = new PlainTextArrayWithFilter(list2);
-// const comboBox2 = new DynamicComboBox({
-//     elementClass: 'combo-box-cuie',
-//     querySelectorString: '.combo-box-2',
-//     listElementClass: 'li-elem',
-//     maxSize: 5,
-// }, txtArray2);
-//
-// //date picker
-// const daysLabels = ['Nie', 'Pon', 'Wto', 'Sro', 'Czw', 'Pio', 'Sob'];
-// const monthsLabels = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
-//     'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
-// const dateExt = new DateExtended(daysLabels, monthsLabels);
-// const datePicker = new DatePicker({
-//     querySelectorString: '.date-picker-1',
-//     elementClass: 'date-picker-cuie',
-//     todayClass: 'today-date',
-//     selectedDayClass: 'current-date',
-//     monthSelectionClass: 'month-selection',
-//     monthYearLabelClass: 'month-display',
-//     prevBtnClass: 'prev-btn',
-//     nextBtnClass: 'next-btn',
-//     dayLabelClass: 'cell-header',
-//     dayClass: 'cell-day',
-//     dayTableClass: 'days-table',
-//     datePickerDivClass: 'date-picker',
-// }, dateExt);
+//date picker
+const daysLabels = ['Nie', 'Pon', 'Wto', 'Sro', 'Czw', 'Pio', 'Sob'];
+const monthsLabels = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec',
+    'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+const dateExt = new DateExtended(daysLabels, monthsLabels);
+const datePicker = new DatePicker({
+    querySelectorString: '.date-picker-1',
+    elementClass: 'date-picker-cuie',
+    todayClass: 'today-date',
+    selectedDayClass: 'current-date',
+    monthSelectionClass: 'month-selection',
+    monthYearLabelClass: 'month-display',
+    prevBtnClass: 'prev-btn',
+    nextBtnClass: 'next-btn',
+    dayLabelClass: 'cell-header',
+    dayClass: 'cell-day',
+    dayTableClass: 'days-table',
+    datePickerDivClass: 'date-picker',
+}, dateExt);
+const dateExt2 = new DateExtended(daysLabels, monthsLabels);
+const rxDatePicker = new RxDatePicker({
+    querySelectorString: '.date-picker-2',
+    elementClass: 'date-picker-cuie',
+    todayClass: 'today-date',
+    selectedDayClass: 'current-date',
+    monthSelectionClass: 'month-selection',
+    monthYearLabelClass: 'month-display',
+    prevBtnClass: 'prev-btn',
+    nextBtnClass: 'next-btn',
+    dayLabelClass: 'cell-header',
+    dayClass: 'cell-day',
+    dayTableClass: 'days-table',
+    datePickerDivClass: 'date-picker',
+}, dateExt2);
+const dateOb = new MyObserver();
+rxDatePicker.subscribe(dateOb);
 //
 // //list with checkboxes
-// const list3 = [
-//     'element 1',
-//     'other elemment',
-//     'another one',
-//     'smthg else',
-//     'next item',
-//     'item i',
-//     'other item x',
-//     'text value',
-// ];
-//
-// const txtArray3 = new PlainTextArrayWithSelectedValues(list3);
-// const txtArray4 = new PlainTextArrayWithSelectedValues(list3, true);
-//
-// const listWithCheckBoxes = new ListWithCheckboxes({
-//     querySelectorString: '.list-w-checkboxes-1',
-//     elementClass: 'list-with-checkboxes-cuie',
-//     listClass: 'list-elements',
-//     checkBoxClass: 'check-box',
-//     listElementClass: 'li-elem',
-//     selectedElementClass: 'checked',
-//     valueClass: 'element',
-// }, txtArray3);
-//
-// const listWithCheckBoxes2 = new ListWithCheckboxes({
-//     querySelectorString: '.list-w-checkboxes-2',
-//     elementClass: 'list-with-checkboxes-cuie',
-//     listClass: 'list-elements',
-//     checkBoxClass: 'check-box',
-//     listElementClass: 'li-elem',
-//     selectedElementClass: 'checked',
-//     valueClass: 'element',
-// }, txtArray4);
+const list3 = [
+    'element 1',
+    'other elemment',
+    'another one',
+    'smthg else',
+    'next item',
+    'item i',
+    'other item x',
+    'text value',
+];
+
+const txtArray33 = new PlainTextArrayWithSelectedValues(list3);
+const txtArray4 = new PlainTextArrayWithSelectedValues(list3, true);
+const txtArray44 = new PlainTextArrayWithSelectedValues(list3, true);
+
+const listWithCheckBoxes = new ListWithCheckboxes({
+    querySelectorString: '.list-w-checkboxes-1',
+    elementClass: 'list-with-checkboxes-cuie',
+    listClass: 'list-elements',
+    checkBoxClass: 'check-box',
+    listElementClass: 'li-elem',
+    selectedElementClass: 'checked',
+    valueClass: 'element',
+}, txtArray33);
+
+const listWithCheckBoxes2 = new ListWithCheckboxes({
+    querySelectorString: '.list-w-checkboxes-2',
+    elementClass: 'list-with-checkboxes-cuie',
+    listClass: 'list-elements',
+    checkBoxClass: 'check-box',
+    listElementClass: 'li-elem',
+    selectedElementClass: 'checked',
+    valueClass: 'element',
+}, txtArray4);
+const rxListWithCheckBoxes3 = new RxListWithCheckBoxes({
+    querySelectorString: '.list-w-checkboxes-3',
+    elementClass: 'list-with-checkboxes-cuie',
+    listClass: 'list-elements',
+    checkBoxClass: 'check-box',
+    listElementClass: 'li-elem',
+    selectedElementClass: 'checked',
+    valueClass: 'element',
+}, txtArray44);
+const listOb = new MyObserver();
+rxListWithCheckBoxes3.subscribe(listOb);
+
 //
 const list4 = [
     'element 1',
@@ -161,12 +205,21 @@ const ob = new MyObserver();
 spinner3.subscribe(ob);
 
 //
-// const minMax = new MinMaxValue(50, 0, 100);
-// const slider = new Slider({
-//     querySelectorString: '.slider-1',
-//     elementClass: 'slider-cuie',
-//     pointerWidth: 5,
-// }, minMax);
+const minMax = new MinMaxValue(50, 0, 100);
+const slider = new Slider({
+    querySelectorString: '.slider-1',
+    elementClass: 'slider-cuie',
+    pointerWidth: 5,
+}, minMax);
+
+const minMax2 = new MinMaxValue(10, 0, 50);
+const rxSlider2 = new RxSlider({
+    querySelectorString: '.slider-2',
+    elementClass: 'slider-cuie',
+    pointerWidth: 5,
+}, minMax2);
+const sliderOb = new MyObserver();
+rxSlider2.subscribe(sliderOb);
 
 const list = [
     'element 1',

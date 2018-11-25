@@ -19,13 +19,13 @@
   .click-field {
     width: 90%;
     height: 1.5em;
-    margin: .15em auto 0;
+    margin: .2em auto 0;
     position: relative;
     background-color: transparent;
   }
 
   .beam-fill {
-    width: 0%;
+    width: 0;
     height: 100%;
     background-color: $cui-element-btn-color;
   }
@@ -36,7 +36,7 @@
     border: 1px solid $cui-border-color;
     position: absolute;
     width: 5px;
-    top: 0%;
-    left: 0%;
+    top: 0;
+    left: 0;
   }
 }

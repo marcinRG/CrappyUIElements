@@ -2,6 +2,7 @@
 @import '../mixins';
 
 .radio-btn-group-cuie {
+  @include set-to-zero;
   border: $cui-border-color solid 1px;
   border-radius: $cui-border-radius;
   width: 100%;
@@ -10,9 +11,14 @@
   position: relative;
 
   .btn-wrapper {
+    @include set-to-zero;
     position: absolute;
     display: block;
     padding: .5em;
+
+    .input-rbtn {
+      @include set-to-zero;
+    }
 
     &.top-left {
       top: 0;

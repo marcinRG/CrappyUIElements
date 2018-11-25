@@ -58,9 +58,13 @@ export class DynamicComboBox {
         this.maxLength = properties.maxSize;
     }
 
-    private changeToSelected(ID: string) {
+    public changeValue(ID: string) {
         const index = this.selectableList.getIndex(ID);
         this.selectableList.selectedValues = this.selectableList.values[index];
+    }
+
+    private changeToSelected(ID: string) {
+        this.changeValue(ID);
         if (this.selectableList.selectedValues) {
             this.txtInput.value = this.selectableList.getTitle(this.selectableList.selectedValues);
             const values = this.selectableList.filteredValues(this.txtInput.value, 0);

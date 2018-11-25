@@ -3,21 +3,19 @@ import {IValueTransformation} from '../../Interfaces/IValueTransformation';
 
 export class Slider {
 
+    private isMouseDown: boolean = false;
+    private pointerWidth: number;
+    private minWidth;
+    private maxWidth;
+    private htmlPointerElement;
+    private htmlFieldElement;
+    private htmlBeamFillElement;
     private elementClass: string;
     private fieldClass: string;
     private beamClass: string;
     private beamFillClass: string;
     private pointerClass: string;
-    private pointerWidth: number;
-    private isMouseDown: boolean = false;
-
-    private minWidth;
-    private maxWidth;
-
     private htmlElement;
-    private htmlPointerElement;
-    private htmlFieldElement;
-    private htmlBeamFillElement;
 
     constructor(properties: ISliderProperties, public minMaxValue: IValueTransformation<any>) {
         this.setProperties(properties);
@@ -28,9 +26,9 @@ export class Slider {
             this.minMaxValue.transformation(this.minWidth, this.maxWidth)));
 
         this.htmlFieldElement.addEventListener('click', (event: MouseEvent) => {
-            this.changePointerPositionAndFillBeamLength(event.clientX);
-            this.minMaxValue.value = this.minMaxValue.reverseTransformation(
-                event.clientX, this.minWidth, this.maxWidth);
+            const x = event.clientX;
+            this.changePointerPositionAndFillBeamLength(x);
+            this.changeValue(x, this.minWidth, this.maxWidth);
         });
 
         window.addEventListener('resize', () => {
@@ -41,9 +39,9 @@ export class Slider {
 
         this.htmlFieldElement.addEventListener('mousemove', (event: MouseEvent) => {
             if (this.isMouseDown) {
-                this.changePointerPositionAndFillBeamLength(event.clientX);
-                this.minMaxValue.value = this.minMaxValue.reverseTransformation(
-                    event.clientX, this.minWidth, this.maxWidth);
+                const x = event.clientX;
+                this.changePointerPositionAndFillBeamLength(x);
+                this.changeValue(x, this.minWidth, this.maxWidth);
             }
         });
 
@@ -56,10 +54,15 @@ export class Slider {
         });
     }
 
+    public changeValue(x: number, min: number, max: number) {
+        this.minMaxValue.value = this.minMaxValue.reverseTransformation(
+            x, min, max);
+    }
+
     private setMinMaxWidth() {
-        this.minWidth = this.htmlFieldElement.offsetLeft + Math.floor(this.pointerWidth / 2);
-        this.maxWidth = this.htmlFieldElement.offsetLeft + this.htmlFieldElement.offsetWidth -
-            Math.floor(this.pointerWidth / 2);
+        const rect = this.htmlFieldElement.getBoundingClientRect();
+        this.minWidth = Math.floor(rect.left + (this.pointerWidth / 2));
+        this.maxWidth = Math.ceil(rect.left + rect.width - (this.pointerWidth / 2));
     }
 
     private changePointerPositionAndFillBeamLength(x: number) {
@@ -103,3 +106,4 @@ export class Slider {
         this.htmlBeamFillElement = this.htmlElement.querySelector(selectorBeamFill);
     }
 }
+

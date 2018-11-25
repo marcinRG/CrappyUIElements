@@ -20,4 +20,11 @@ export class RxSlider extends Slider implements ISubscribe<any> {
     public subscribe(observer: Observer<any>) {
         this.subject.subscribe(observer);
     }
+
+    public changeValue(x: number, min: number, max: number) {
+        this.minMaxValue.value = this.minMaxValue.reverseTransformation(
+            x, min, max);
+        this.subject.next(this.minMaxValue.value);
+    }
+
 }

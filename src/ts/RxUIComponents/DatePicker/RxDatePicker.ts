@@ -21,4 +21,41 @@ export class RxDatePicker extends DatePicker implements ISubscribe<any> {
         this.subject.subscribe(observer);
     }
 
+    public changeValue(operation: string, value: any = null) {
+        switch (operation) {
+            case 'nextMonth' : {
+                this.date.addMonth();
+                this.subject.next(this.createDate());
+                return;
+            }
+            case 'previousMonth': {
+                this.date.subtractMonth();
+                this.subject.next(this.createDate());
+                return;
+            }
+            case 'txtDate' : {
+                if (value && (typeof(value) === 'string')) {
+                    const val = this.date.setDateFromString(value);
+                    if (val) {
+                        this.subject.next(this.createDate());
+                    }
+                    return val;
+                }
+            }
+            case 'day': {
+                if (value && (typeof(value) === 'number')) {
+                    this.date.setDay(value);
+                    this.subject.next(this.createDate());
+                    return;
+                }
+
+            }
+        }
+    }
+
+    private createDate() {
+        return new Date(this.date.dateToStr());
+    }
+
+
 }

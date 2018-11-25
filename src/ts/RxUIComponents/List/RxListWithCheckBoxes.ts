@@ -20,4 +20,10 @@ export class RxListWithCheckBoxes extends ListWithCheckboxes implements ISubscri
     public subscribe(observer: Observer<any>) {
         this.subject.subscribe(observer);
     }
+
+    public changeValue(value: any) {
+        const element = this.selectableList.values[this.selectableList.getIndex(value)];
+        this.selectableList.addRemoveValue(element);
+        this.subject.next(this.selectableList.selectedValues);
+    }
 }

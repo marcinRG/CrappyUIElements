@@ -2,12 +2,14 @@ import {DateExtended} from '../../models/DateExtended';
 import {animationsUtils} from './../../Utils/Animation.Utilities';
 import * as utils from './../../Utils/Utilities';
 import {IDatePickerProperties} from '../../Interfaces/IDatePicker.Properties';
+import {type} from 'os';
 
 export class DatePicker {
-    private htmlElement;
-    private htmlTextInput;
-    private htmlButtonInput;
+
     private htmlMonthYearLabel;
+    private htmlTextInput;
+    private htmlElement;
+    private htmlButtonInput;
     private htmlNextMonthButton;
     private htmlPreviousMonthButton;
     private htmlDatePicker;
@@ -36,7 +38,7 @@ export class DatePicker {
         this.fillDays();
         this.fillMonthYearLabel();
         this.debouncedParseAndAddToOutput = utils.debounce<string>((value) => {
-            if (this.date.setDateFromString(value)) {
+            if (this.changeValue('txtDate', value)) {
                 this.fillMonthYearLabel();
                 this.fillDays();
             }
@@ -54,6 +56,49 @@ export class DatePicker {
         this.htmlTextInput.addEventListener('input', () => {
             this.debouncedParseAndAddToOutput(this.htmlTextInput.value);
         });
+    }
+
+    public changeValue(operation: string, value: any = null) {
+        switch (operation) {
+            case 'nextMonth' : {
+                this.date.addMonth();
+                return;
+            }
+            case 'previousMonth': {
+                this.date.subtractMonth();
+                return;
+            }
+            case 'txtDate' : {
+                if (value && (typeof(value) === 'string')) {
+                    return this.date.setDateFromString(value);
+                }
+            }
+            case 'day': {
+                if (value && (typeof(value) === 'number')) {
+                    this.date.setDay(value);
+                    return;
+                }
+
+            }
+        }
+    }
+
+    private nextMonth() {
+        this.changeValue('nextMonth');
+        this.fillMonthYearLabel();
+        this.fillDays();
+        this.htmlTextInput.value = this.date.dateToStr();
+    }
+
+    private previousMonth() {
+        this.changeValue('previousMonth');
+        this.fillMonthYearLabel();
+        this.fillDays();
+        this.htmlTextInput.value = this.date.dateToStr();
+    }
+
+    private fillMonthYearLabel() {
+        this.htmlMonthYearLabel.textContent = this.date.getMonthYearString();
     }
 
     private setProperties(properties: IDatePickerProperties) {
@@ -146,7 +191,7 @@ export class DatePicker {
         elem.addEventListener('click', () => {
             this.daysTableCollection[this.date.getDay() +
             this.date.firstDayWeekOfMonth() - 1].classList.remove(this.selectedDayClass);
-            this.date.setDay(i);
+            this.changeValue('day', i);
             this.htmlTextInput.value = this.date.dateToStr();
             this.daysTableCollection[this.date.getDay() +
             this.date.firstDayWeekOfMonth() - 1].classList.add(this.selectedDayClass);
@@ -224,23 +269,5 @@ export class DatePicker {
         }
         tHeader.appendChild(tRow);
         return tHeader;
-    }
-
-    private nextMonth() {
-        this.date.addMonth();
-        this.fillMonthYearLabel();
-        this.fillDays();
-        this.htmlTextInput.value = this.date.dateToStr();
-    }
-
-    private previousMonth() {
-        this.date.subtractMonth();
-        this.fillMonthYearLabel();
-        this.fillDays();
-        this.htmlTextInput.value = this.date.dateToStr();
-    }
-
-    private fillMonthYearLabel() {
-        this.htmlMonthYearLabel.textContent = this.date.getMonthYearString();
     }
 }

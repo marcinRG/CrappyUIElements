@@ -24,6 +24,11 @@ export class ComboBox {
         });
     }
 
+    public changeValue(ID: string) {
+        const index = this.selectableList.getIndex(ID);
+        this.selectableList.selectedValues = this.selectableList.values[index];
+    }
+
     private setInitialProperties(properties: IComboBoxProperties) {
         this.txtInput.readOnly = true;
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
@@ -40,8 +45,7 @@ export class ComboBox {
     }
 
     private changeToSelected(ID: string) {
-        const index = this.selectableList.getIndex(ID);
-        this.selectableList.selectedValues = this.selectableList.values[index];
+        this.changeValue(ID);
         if (this.selectableList.selectedValues) {
             this.txtInput.value = this.selectableList.getTitle(this.selectableList.selectedValues);
             this.hideAfterSelected();

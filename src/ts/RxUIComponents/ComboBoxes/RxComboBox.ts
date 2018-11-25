@@ -13,6 +13,12 @@ export class RxComboBox extends ComboBox implements ISubscribe<any> {
         super(properties, selectableList);
     }
 
+    public changeValue(ID: string) {
+        const index = this.selectableList.getIndex(ID);
+        this.selectableList.selectedValues = this.selectableList.values[index];
+        this.subject.next(this.selectableList.selectedValues);
+    }
+
     public getObservable(): Observable<any> {
         return this.subject;
     }

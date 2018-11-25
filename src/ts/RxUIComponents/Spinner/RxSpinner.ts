@@ -21,13 +21,21 @@ export class RxSpinner extends Spinner implements ISubscribe<any> {
         this.subject.subscribe(observer);
     }
 
-    public nextValue() {
-        this.htmlInputText.value = this.iterable.next() + '';
-        this.subject.next(this.iterable.value);
-    }
-
-    public previousValue() {
-        this.htmlInputText.value = this.iterable.previous() + '';
-        this.subject.next(this.iterable.value);
+    public changeValue(direction: string) {
+        if (direction === "next") {
+            if (!this.iterable.isAtEnd()) {
+                const val = this.iterable.next();
+                this.subject.next(val);
+                return val;
+            }
+        }
+        if (direction === 'previous') {
+            if (!this.iterable.isAtStart()) {
+                const val = this.iterable.previous();
+                this.subject.next(val);
+                return val;
+            }
+        }
+        return null;
     }
 }

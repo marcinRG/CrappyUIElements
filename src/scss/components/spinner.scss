@@ -3,11 +3,18 @@
 
 .spinner-cuie {
 
+  @include block-border-box;
   @include input-fields;
+  @include clear-both-overflow-hidden;
 
   .input-txt {
     @include input-text;
     width: 90%;
+  }
+
+  .button-wrapper {
+    width: 10%;
+    float: right;
   }
 
   .button-up {
