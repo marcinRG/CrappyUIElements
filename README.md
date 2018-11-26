@@ -10,5 +10,5 @@ Kit of javascript UI Elements
 *  **ListWithCheckboxes** - List with checkbox at every option
 *  **DirectionsRadioBtnsGroup** - custom radio button group
 
-**Warning!** Library was created as learning exercise. 
+**Warning!** Library was created as learning exercise.
 It wasn't properly tested. You should avoid using it.
