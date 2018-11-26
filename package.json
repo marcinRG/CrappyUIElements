@@ -7,7 +7,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcinRG/CrappyUIElements"
+  },
+  "files": [
+    "build"
+  ],
+  "author": "Marcin Guszpit",
+  "homepage": "https://github.com/marcinRG/CrappyUIElements",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^10.3.3",
@@ -41,6 +49,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
+    "npm": "^6.4.1",
     "rxjs": "^5.5.5",
     "velocity-animate": "^2.0.5"
   }
