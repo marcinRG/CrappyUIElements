@@ -2,16 +2,13 @@
   "name": "crappyuielements",
   "version": "1.0.1",
   "description": "Some crappy UI Components",
-  "main": "CrappyUIElements/index.js",
-  "types": "CrappyUIElements/index.d.ts",
+  "main": "CrappyUIElements/CrappyUIElements.js",
+  "types": "CrappyUIElements/CrappyUIElements.d.ts",
   "scripts": {},
   "repository": {
     "type": "git",
     "url": "https://github.com/marcinRG/CrappyUIElements"
   },
-  "files": [
-    "CrappyUIElements"
-  ],
   "author": "Marcin Guszpit",
   "homepage": "https://github.com/marcinRG/CrappyUIElements",
   "license": "ISC",
