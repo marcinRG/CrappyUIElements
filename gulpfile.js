@@ -6,6 +6,7 @@ var source = require('vinyl-source-stream');
 var $ = require('gulp-load-plugins')({lazy: true});
 var sassLint = require('gulp-sass-lint');
 var del = require('del');
+var tsify = require('tsify');
 var tsProject = ts.createProject('tsconfig.build.json');
 //var sassImportOnce = require('gulp-sass-import-once');
 var settings = require('./gulp.settings/settings');
