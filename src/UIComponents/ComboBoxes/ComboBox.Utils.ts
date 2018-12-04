@@ -1,6 +1,7 @@
 import {ISelectableList} from '../../Interfaces/ISelectableList';
 import {IComboBoxProperties} from '../../Interfaces/IComboBox.Properties';
 import {animationsUtils} from '../../Utils/Animation.Utilities';
+import {IList} from '../../Interfaces/IList';
 
 export function createHTMLElements(properties: IComboBoxProperties) {
     const elementClass = properties.elementClass;
@@ -63,6 +64,26 @@ export function hideAfterSelected(listElements, maxLength, listVisible, btnInput
         heightOverflowProperties.height);
     addRemoveClass(listVisible, btnInput, changeBtnClass);
     return false;
+}
+
+function findInList<T>(list: IList<T>, value: T) {
+    return list.values.findIndex((elem: T) => {
+        return list.isEqual(elem, value);
+    });
+}
+
+export function contains<T>(list: IList<T>, valuesToCheck: T | T[]) {
+    if (Array.isArray(valuesToCheck)) {
+        valuesToCheck.forEach((elem) => {
+            if (findInList(list, elem) < 0) {
+                return false;
+            }
+        });
+        return true;
+    }
+    else {
+        return (findInList(list, valuesToCheck) >= 0);
+    }
 }
 
 export function toggleListElements(listElements, maxLength, listVisible) {

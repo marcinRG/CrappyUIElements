@@ -24,4 +24,8 @@ export class PlainTextArray implements ISelectableList<string> {
         }
         return null;
     }
+
+    public isEqual(elem1: string, elem2: string) {
+        return (elem1 === elem2);
+    }
 }

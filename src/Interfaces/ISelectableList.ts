@@ -1,11 +1,5 @@
-export interface ISelectableList<T> {
-    values: T[];
+import {IList} from './IList';
 
-    selectedValues: T | T[];
-
-    getUniqueID(elem: T): string;
-
-    getIndex(uniqueID: string): number;
-
+export interface ISelectableList<T> extends IList<T> {
     getTitle(elem: T): string;
 }

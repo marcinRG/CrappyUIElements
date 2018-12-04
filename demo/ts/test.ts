@@ -20,7 +20,6 @@ import {DatePicker} from '../../src/UIComponents/DatePicker/DatePicker';
 import {DirectionsRadioBtnsGroup} from '../../src/UIComponents/Misc/DirectionsRadioBtnsGroup';
 
 
-
 class MyObserver implements Observer<any> {
     public next(value: any) {
         console.log('observer ok');
@@ -50,7 +49,7 @@ const list11 = [
     'element 10',
     'element 11',
 ];
-const txtArray11 = new PlainTextArrayWithFilter(list11);
+const txtArray11 = new PlainTextArrayWithFilter(list11, 'element 1');
 const comboBox = new ComboBox({
     elementClass: 'combo-box-cuie',
     querySelectorString: '.combo-box-1',
