@@ -1,7 +1,7 @@
 export interface IList<T> {
     values: T[];
 
-    selectedValues: T | T[];
+    selected: T | T[];
 
     getUniqueID(elem: T): string;
 

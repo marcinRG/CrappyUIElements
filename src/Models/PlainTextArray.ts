@@ -1,8 +1,9 @@
-import {ISelectableList} from '../Interfaces/ISelectableList';
+import {IGetTitle} from '../Interfaces/Data.Models/IGetTitle';
+import {IList} from '../Interfaces/Data.Models/IList';
 
-export class PlainTextArray implements ISelectableList<string> {
+export class PlainTextArray implements IGetTitle<string>, IList<string> {
 
-    constructor(public values: string[], public selectedValues = null) {
+    constructor(public values: string[], public selected = null) {
     }
 
     public getIndex(uniqueID: string): number {
@@ -18,7 +19,9 @@ export class PlainTextArray implements ISelectableList<string> {
     }
 
     public getUniqueID(elem: string): string {
-        const index = this.values.indexOf(elem);
+        const index = this.values.findIndex((val: string) => {
+            return this.isEqual(val, elem);
+        });
         if (index >= 0) {
             return index + '';
         }

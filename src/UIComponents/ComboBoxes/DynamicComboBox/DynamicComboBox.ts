@@ -1,8 +1,10 @@
 import {animationsUtils} from '../../../Utils/Animation.Utilities';
-import {IComboBoxProperties} from '../../../Interfaces/IComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
 import * as utils from '../../../Utils/Utilities';
-import {IFilteredValuesList} from '../../../Interfaces/IFilteredValuesList';
+import {IComboBoxProperties} from '../../../Interfaces/Component.Properties/IComboBox.Properties';
+import {IFilteredValuesList} from '../../../Interfaces/Data.Models/IFilteredValuesList';
+import {IList} from '../../../Interfaces/Data.Models/IList';
+import {IGetTitle} from '../../../Interfaces/Data.Models/IGetTitle';
 
 export class DynamicComboBox {
     private htmlElement;
@@ -15,7 +17,8 @@ export class DynamicComboBox {
     private changeBtnClass;
     private debouncedInputTxt: any;
 
-    constructor(properties: IComboBoxProperties, public selectableList: IFilteredValuesList<any>) {
+    constructor(properties: IComboBoxProperties,
+                public selectableList: IFilteredValuesList<any> & IList<any> & IGetTitle<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         CBoxUtils.createListElements(this.selectableList, this.selectableList.values, this.listElements,
@@ -49,11 +52,22 @@ export class DynamicComboBox {
         this.txtInput.addEventListener('input', () => {
             this.debouncedInputTxt(this.txtInput.value);
         });
+
+        this.setInitialValueToTextInput();
     }
 
     public changeValue(ID: string) {
         const index = this.selectableList.getIndex(ID);
-        this.selectableList.selectedValues = this.selectableList.values[index];
+        this.selectableList.selected = this.selectableList.values[index];
+    }
+
+    private setInitialValueToTextInput() {
+        if (this.selectableList.selected) {
+            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
+            const values = this.selectableList.filteredValues(this.txtInput.value, 0);
+            CBoxUtils.createListElements(this.selectableList, values, this.listElements,
+                this.listElementClass, this, this.changeToSelected);
+        }
     }
 
     private setInitialProperties(properties: IComboBoxProperties) {
@@ -65,8 +79,8 @@ export class DynamicComboBox {
 
     private changeToSelected(ID: string) {
         this.changeValue(ID);
-        if (this.selectableList.selectedValues) {
-            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selectedValues);
+        if (this.selectableList.selected) {
+            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
             const values = this.selectableList.filteredValues(this.txtInput.value, 0);
             CBoxUtils.createListElements(this.selectableList, values, this.listElements,
                 this.listElementClass, this, this.changeToSelected);

@@ -1,7 +1,7 @@
-import {ISelectableList} from '../../Interfaces/ISelectableList';
-import {IComboBoxProperties} from '../../Interfaces/IComboBox.Properties';
+import {IComboBoxProperties} from '../../Interfaces/Component.Properties/IComboBox.Properties';
+import {IGetTitle} from '../../Interfaces/Data.Models/IGetTitle';
+import {IList} from '../../Interfaces/Data.Models/IList';
 import {animationsUtils} from '../../Utils/Animation.Utilities';
-import {IList} from '../../Interfaces/IList';
 
 export function createHTMLElements(properties: IComboBoxProperties) {
     const elementClass = properties.elementClass;
@@ -39,7 +39,7 @@ export function addRemoveClass(condition: boolean, element: HTMLElement, classNa
     }
 }
 
-export function createListElements(list: ISelectableList<any>, values: any, htmlListElement: HTMLElement,
+export function createListElements(list: IList<any> & IGetTitle<any>, values: any, htmlListElement: HTMLElement,
                                    listElementClass: string, comboBox: object, callback: any) {
     if (htmlListElement) {
         htmlListElement.innerHTML = null;
@@ -66,25 +66,45 @@ export function hideAfterSelected(listElements, maxLength, listVisible, btnInput
     return false;
 }
 
-function findInList<T>(list: IList<T>, value: T) {
-    return list.values.findIndex((elem: T) => {
-        return list.isEqual(elem, value);
-    });
-}
+// export function checkSelectedValuesAndGetUniqueID<T>(list: IList<T>, value: T | T[]) {
+//     let val;
+//     if (Array.isArray(value) && value.length === 1) {
+//         val = value[0];
+//     } else {
+//         val = value;
+//     }
+//     return list.getUniqueID(val);
+// }
+//
+// export function getSelectedValue<T>(list: IList<T>, value: T | T[]) {
+//     const uniqueID = checkSelectedValuesAndGetUniqueID<T>(list, value);
+//     if (uniqueID) {
+//         const val = list.values[list.getIndex(uniqueID)];
+//         return val;
+//     } else {
+//         return null;
+//     }
+// }
 
-export function contains<T>(list: IList<T>, valuesToCheck: T | T[]) {
-    if (Array.isArray(valuesToCheck)) {
-        valuesToCheck.forEach((elem) => {
-            if (findInList(list, elem) < 0) {
-                return false;
-            }
-        });
-        return true;
-    }
-    else {
-        return (findInList(list, valuesToCheck) >= 0);
-    }
-}
+// function findInList<T>(list: IList<T>, value: T) {
+//     return list.values.findIndex((elem: T) => {
+//         return list.isEqual(elem, value);
+//     });
+// }
+//
+// export function contains<T>(list: IList<T>, valuesToCheck: T | T[]) {
+//     if (Array.isArray(valuesToCheck)) {
+//         valuesToCheck.forEach((elem) => {
+//             if (findInList(list, elem) < 0) {
+//                 return false;
+//             }
+//         });
+//         return true;
+//     }
+//     else {
+//         return (findInList(list, valuesToCheck) >= 0);
+//     }
+// }
 
 export function toggleListElements(listElements, maxLength, listVisible) {
     const heightOverflowProperties = animationsUtils.getListElementHeightOverflow(listElements,

@@ -1,15 +1,15 @@
-import {ListWithCheckboxes} from '../../UIComponents/List/ListWithCheckboxes';
+/*import {ListWithCheckboxes} from '../../UIComponents/List/ListWithCheckboxes';
 import {ISubscribe} from '../../Interfaces/ISubscribe';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {IListWithCheckBoxesProperties} from '../../Interfaces/IListWithCheckBoxes.properties';
-import {ISelectedValuesList} from '../../Interfaces/ISelectedValuesList';
+import {IselectedList} from '../../Interfaces/IselectedList';
 
 export class RxListWithCheckBoxes extends ListWithCheckboxes implements ISubscribe<any> {
     private subject: Subject<any> = new Subject<any>();
 
-    constructor(properties: IListWithCheckBoxesProperties, selectableList: ISelectedValuesList<any>) {
+    constructor(properties: IListWithCheckBoxesProperties, selectableList: IselectedList<any>) {
         super(properties, selectableList);
     }
 
@@ -24,6 +24,6 @@ export class RxListWithCheckBoxes extends ListWithCheckboxes implements ISubscri
     public changeValue(value: any) {
         const element = this.selectableList.values[this.selectableList.getIndex(value)];
         this.selectableList.addRemoveValue(element);
-        this.subject.next(this.selectableList.selectedValues);
+        this.subject.next(this.selectableList.selected);
     }
-}
+}*/

@@ -1,6 +1,8 @@
-import {IComboBoxProperties} from '../../../Interfaces/IComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
-import {IFilteredValuesList} from '../../../Interfaces/IFilteredValuesList';
+import {IComboBoxProperties} from '../../../Interfaces/Component.Properties/IComboBox.Properties';
+import {IFilteredValuesList} from '../../../Interfaces/Data.Models/IFilteredValuesList';
+import {IList} from '../../../Interfaces/Data.Models/IList';
+import {IGetTitle} from '../../../Interfaces/Data.Models/IGetTitle';
 
 export class ComboBox {
     private htmlElement;
@@ -12,7 +14,8 @@ export class ComboBox {
     private listVisible = false;
     private changeBtnClass;
 
-    constructor(properties: IComboBoxProperties, public selectableList: IFilteredValuesList<any>) {
+    constructor(properties: IComboBoxProperties,
+                public selectableList: IFilteredValuesList<any> & IList<any> & IGetTitle<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         const values = this.selectableList.values;
@@ -22,11 +25,18 @@ export class ComboBox {
             CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
             this.toggleListElements();
         });
+        this.setInitialValueToTextInput();
     }
 
     public changeValue(ID: string) {
         const index = this.selectableList.getIndex(ID);
-        this.selectableList.selectedValues = this.selectableList.values[index];
+        this.selectableList.selected = this.selectableList.values[index];
+    }
+
+    private setInitialValueToTextInput() {
+        if (this.selectableList.selected) {
+            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
+        }
     }
 
     private setInitialProperties(properties: IComboBoxProperties) {
@@ -36,8 +46,8 @@ export class ComboBox {
         this.maxLength = properties.maxSize;
     }
 
-    private createElements(properites: IComboBoxProperties) {
-        const elements = CBoxUtils.createHTMLElements(properites);
+    private createElements(properties: IComboBoxProperties) {
+        const elements = CBoxUtils.createHTMLElements(properties);
         this.htmlElement = elements.htmlElement;
         this.txtInput = elements.txtInput;
         this.btnInput = elements.btnInput;
@@ -46,8 +56,8 @@ export class ComboBox {
 
     private changeToSelected(ID: string) {
         this.changeValue(ID);
-        if (this.selectableList.selectedValues) {
-            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selectedValues);
+        if (this.selectableList.selected) {
+            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
             this.hideAfterSelected();
         }
     }

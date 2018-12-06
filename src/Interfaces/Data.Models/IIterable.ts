@@ -1,5 +1,5 @@
 export interface IIterable<T> {
-    value: T;
+    selected: T;
 
     next(): T;
 
