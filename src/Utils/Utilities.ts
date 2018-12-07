@@ -18,14 +18,30 @@ export function findInList<T>(list: IList<T>, value: T) {
     });
 }
 
-export function findSingleValue<T>(list: IList<T>, initialValue: T | T[]) {
+export function getSingleValue<T>(list: IList<T>, initialValue: T | T[]): T {
     let value: any;
     if (Array.isArray(initialValue) && initialValue.length === 1) {
         value = initialValue[0];
     } else {
         value = initialValue;
     }
-    return list.values[findInList(list, value)];
+    const index = findInList(list, value);
+    if (index >= 0) {
+        return list.values[index];
+    } else {
+        return null;
+    }
+}
+
+export function getMultipleValues<T>(list: IList<T>, initialValue: T[]): T[] {
+    let values: T[] = [];
+    const everyValueInList = initialValue.every((elem: T) => {
+        return (findInList(list, elem) >= 0);
+    });
+    if (everyValueInList) {
+        values = getUniqueValues(initialValue, list.isEqual);
+    }
+    return values;
 }
 
 export function getUniqueValues<T>(values: T[], isEqualFunction: (ob: T, ob2: T) => boolean) {
@@ -38,15 +54,4 @@ export function getUniqueValues<T>(values: T[], isEqualFunction: (ob: T, ob2: T)
         }
         return previousValue;
     }, []);
-}
-
-export function findMultipleValues<T>(list: IList<T>, initialValue: T[]) {
-    let values: T[];
-    const everyValueInList = initialValue.every((elem: T) => {
-        return (findInList(list, elem) >= 0);
-    });
-    if (everyValueInList) {
-       values = getUniqueValues(initialValue, list.isEqual);
-    }
-    return values;
 }
