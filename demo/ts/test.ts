@@ -1,91 +1,91 @@
-/*
-import {Observer} from 'rxjs/Observer';
-import {RxDatePicker} from '../../src/RxUIComponents/DatePicker/RxDatePicker';
-import {RxListWithCheckBoxes} from '../../src/RxUIComponents/List/RxListWithCheckBoxes';
-import {RxSpinner} from '../../src/RxUIComponents/Spinner/RxSpinner';
-import {Slider} from '../../src/UIComponents/Slider/Slider';
-import {ComboBox} from '../../src/UIComponents/ComboBoxes/ComboBox/ComboBox';
-import {Spinner} from '../../src/UIComponents/Spinner/Spinner';
-import {MinMaxValue} from '../../src/Models/MinMaxValue';
-import {PlainTextArrayWithFilter} from '../../src/Models/PlainTextArrayWithFilter';
-import {IterableNumbers} from '../../src/Models/IterableNumbers';
-import {IterableTextArray} from '../../src/Models/IterableTextArray';
-import {ListWithCheckboxes} from '../../src/UIComponents/List/ListWithCheckboxes';
-import {DynamicComboBox} from '../../src/UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
-import {RxComboBox} from '../../src/RxUIComponents/ComboBoxes/RxComboBox';
-import {PlainTextArrayWithSelectedValues} from '../../src/Models/PlainTextArrayWithSelectedValues';
-import {RxSlider} from '../../src/RxUIComponents/Slider/RxSlider';
-import {DateExtended} from '../../src/Models/DateExtended';
-import {RxDirectionsRadioBtnsGroup} from '../../src/RxUIComponents/Misc/RxDirectionsRadioBtnsGroup';
-import {DatePicker} from '../../src/UIComponents/DatePicker/DatePicker';
-import {DirectionsRadioBtnsGroup} from '../../src/UIComponents/Misc/DirectionsRadioBtnsGroup';
-*/
-
-
-// class MyObserver implements Observer<any> {
-//     public next(value: any) {
-//         console.log('observer ok');
-//         console.log(value);
-//     }
+// /*
+// import {Observer} from 'rxjs/Observer';
+// import {RxDatePicker} from '../../src/RxUIComponents/DatePicker/RxDatePicker';
+// import {RxListWithCheckBoxes} from '../../src/RxUIComponents/List/RxListWithCheckBoxes';
+// import {RxSpinner} from '../../src/RxUIComponents/Spinner/RxSpinner';
+// import {Slider} from '../../src/UIComponents/Slider/Slider';
+// import {ComboBox} from '../../src/UIComponents/ComboBoxes/ComboBox/ComboBox';
+// import {Spinner} from '../../src/UIComponents/Spinner/Spinner';
+// import {MinMaxValue} from '../../src/Models/MinMaxValue';
+// import {PlainTextArrayWithFilter} from '../../src/Models/PlainTextArrayWithFilter';
+// import {IterableNumbers} from '../../src/Models/IterableNumbers';
+// import {IterableTextArray} from '../../src/Models/IterableTextArray';
+// import {ListWithCheckboxes} from '../../src/UIComponents/List/ListWithCheckboxes';
+// import {DynamicComboBox} from '../../src/UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
+// import {RxComboBox} from '../../src/RxUIComponents/ComboBoxes/RxComboBox';
+// import {PlainTextArrayWithSelectedValues} from '../../src/Models/PlainTextArrayWithSelectedValues';
+// import {RxSlider} from '../../src/RxUIComponents/Slider/RxSlider';
+// import {DateExtended} from '../../src/Models/DateExtended';
+// import {RxDirectionsRadioBtnsGroup} from '../../src/RxUIComponents/Misc/RxDirectionsRadioBtnsGroup';
+// import {DatePicker} from '../../src/UIComponents/DatePicker/DatePicker';
+// import {DirectionsRadioBtnsGroup} from '../../src/UIComponents/Misc/DirectionsRadioBtnsGroup';
+// */
 //
-//     public error(err: any) {
-//         console.log('error ocurred' + err);
-//     }
 //
-//     public complete() {
-//         console.log('completed');
-//     }
-// }
-
-//comboBox
-
-import {ComboBox} from '../../src/UIComponents/ComboBoxes/ComboBox/ComboBox';
-import {DynamicComboBox} from '../../src/UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
-import {PlainTextArrayWithFilterSingleSelection} from '../../src/Models/PlainTextArrayWithFilterSingleSelection';
-
-
-const list11 = [
-    'element 1',
-    'element 2',
-    'element 3',
-    'element 4',
-    'element 5',
-    'element 6',
-    'element 7',
-    'element 8',
-    'element 9',
-    'element 10',
-    'element 11',
-];
-const txtArray11 = new PlainTextArrayWithFilterSingleSelection(list11, 'element 1');
-const comboBox = new ComboBox({
-    elementClass: 'combo-box-cuie',
-    querySelectorString: '.combo-box-1',
-    listElementClass: 'li-elem',
-    maxSize: 5,
-}, txtArray11);
-
-//comboBox with autocomplete
-const list12 = [
-    'lorem 1',
-    'ipsum 2',
-    'dolor sit amet',
-    'consectetur adipisicing',
-    'lement 5',
-    'loement 6',
-    'element 7',
-    'element 8',
-    'dlement 9',
-    'dlement 10',
-    'element 11',
-];
-const txtArray12 = new PlainTextArrayWithFilterSingleSelection(list12,'element 11');
-const comboBox2 = new DynamicComboBox({
-    elementClass: 'combo-box-cuie',
-    querySelectorString: '.combo-box-2',
-    listElementClass: 'li-elem',
-    maxSize: 5,
-}, txtArray12);
+// // class MyObserver implements Observer<any> {
+// //     public next(value: any) {
+// //         console.log('observer ok');
+// //         console.log(value);
+// //     }
+// //
+// //     public error(err: any) {
+// //         console.log('error ocurred' + err);
+// //     }
+// //
+// //     public complete() {
+// //         console.log('completed');
+// //     }
+// // }
+//
+// //comboBox
+//
+// import {ComboBox} from '../../src/UIComponents/ComboBoxes/ComboBox/ComboBox';
+// import {DynamicComboBox} from '../../src/UIComponents/ComboBoxes/DynamicComboBox/DynamicComboBox';
+// import {PlainTextArrayWithFilterSingleSelection} from '../../src/Models/PlainTextArrayWithFilterSingleSelection';
+//
+//
+// const list11 = [
+//     'element 1',
+//     'element 2',
+//     'element 3',
+//     'element 4',
+//     'element 5',
+//     'element 6',
+//     'element 7',
+//     'element 8',
+//     'element 9',
+//     'element 10',
+//     'element 11',
+// ];
+// const txtArray11 = new PlainTextArrayWithFilterSingleSelection(list11, 'element 1');
+// const comboBox = new ComboBox({
+//     elementClass: 'combo-box-cuie',
+//     querySelectorString: '.combo-box-1',
+//     listElementClass: 'li-elem',
+//     maxSize: 5,
+// }, txtArray11);
+//
+// //comboBox with autocomplete
+// const list12 = [
+//     'lorem 1',
+//     'ipsum 2',
+//     'dolor sit amet',
+//     'consectetur adipisicing',
+//     'lement 5',
+//     'loement 6',
+//     'element 7',
+//     'element 8',
+//     'dlement 9',
+//     'dlement 10',
+//     'element 11',
+// ];
+// const txtArray12 = new PlainTextArrayWithFilterSingleSelection(list12,'element 11');
+// const comboBox2 = new DynamicComboBox({
+//     elementClass: 'combo-box-cuie',
+//     querySelectorString: '.combo-box-2',
+//     listElementClass: 'li-elem',
+//     maxSize: 5,
+// }, txtArray12);
 
 // const txtArray13 = new PlainTextArrayWithFilter(list12);
 // const rxComboBox = new RxComboBox({

@@ -1,5 +1,6 @@
 import {IFilteredValuesList} from '../Interfaces/Data.Models/IFilteredValuesList';
 import {PlainTextArray} from './PlainTextArray';
+import {findSingleValue} from '../Utils/Utilities';
 
 export class PlainTextArrayWithFilterSingleSelection extends PlainTextArray implements IFilteredValuesList<string> {
 
@@ -15,11 +16,15 @@ export class PlainTextArrayWithFilterSingleSelection extends PlainTextArray impl
         return (maxLength && maxLength > 0) ? filteredResults.slice(0, maxLength) : filteredResults;
     }
 
-    private initSelected(intialValue: string | string[]) {
-        if (Array.isArray(intialValue) && intialValue.length === 1) {
-            this.selected = intialValue[0];
-        } else {
-            this.selected = intialValue;
+    private initSelected(initialValue: string | string[]) {
+        const value = findSingleValue<string>(this, initialValue);
+        if (value) {
+            this.selected = value;
         }
+        // if (Array.isArray(intialValue) && intialValue.length === 1) {
+        //     this.selected = intialValue[0];
+        // } else {
+        //     this.selected = intialValue;
+        // }
     }
 }
