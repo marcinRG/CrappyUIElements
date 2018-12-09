@@ -1,0 +1,67 @@
+@import 'variables';
+
+@mixin set-to-zero {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin block-border-box {
+  @include set-to-zero;
+  box-sizing: border-box;
+  display: block;
+}
+
+@mixin disabled-elem {
+  pointer-events: none;
+  color: $color-grey;
+  background-color: #f1e1d7;
+}
+
+@mixin clear-both-overflow-hidden {
+  overflow: hidden;
+
+  &::after {
+    clear: both;
+  }
+}
+
+@mixin input-fields {
+  @include clear-both-overflow-hidden;
+  border: $cui-border-color solid 1px;
+  border-radius: $cui-border-radius;
+  height: 2em;
+}
+
+@mixin spinner-button {
+  @include set-to-zero;
+  box-sizing: border-box;
+  outline: 0;
+  height: 50%;
+  width: 100%;
+  font-size: .5em;
+  cursor: pointer;
+  color: black;
+}
+
+@mixin input-text {
+  @include block-border-box;
+  color: $cui-text-color;
+  outline: 0;
+  float: left;
+  font-size: 1em;
+  height: 100%;
+  padding: .3em;
+
+  &:focus {
+    background-color: $cui-element-focus;
+  }
+}
+
+@mixin input-btn {
+  @include block-border-box;
+  outline: 0;
+  float: right;
+  height: 100%;
+  background-color: $cui-element-btn-color;
+}

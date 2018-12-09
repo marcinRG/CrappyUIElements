@@ -15,9 +15,9 @@ var paths = {
     scssStyles: [sassFolder + '**/*.scss'],
     tsFile: tsFolder + 'test.ts',
     compiledJS: demoFolder + 'bundle.js',
-    scssFile: sassFolder + 'style.scss',
+    scssFile: sassFolder + 'crappyUIElements.scss',
     cssStyles: cssFolder,
-    cssFile: cssFolder + 'style.css',
+    cssFile: cssFolder + 'crappyUIElements.css',
 };
 
 var build = {
@@ -30,7 +30,7 @@ var build = {
 
 var output = {
     path: outputFolder
-}
+};
 
 module.exports = {
     app: paths,

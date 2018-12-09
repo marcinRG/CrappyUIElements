@@ -55,3 +55,8 @@ export function getUniqueValues<T>(values: T[], isEqualFunction: (ob: T, ob2: T)
         return previousValue;
     }, []);
 }
+
+export function formatNumbers(n: number) {
+    const str = n + '';
+    return str.length > 1 ? str : '0' + str;
+}

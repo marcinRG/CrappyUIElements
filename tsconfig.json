@@ -14,7 +14,7 @@
   "include": [
     "./src/**/*",
     "./demo/**/*",
-    "./test/**/*",
+    "./test/**/*"
   ],
   "exclude": [
     "node_modules"

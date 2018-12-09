@@ -1,0 +1,68 @@
+@import '../variables';
+@import '../mixins';
+
+.combo-box-cuie {
+  @include block-border-box;
+  position: relative;
+  min-width: 320px;
+
+  .inputs {
+    @include input-fields;
+
+    .input-txt {
+      @include input-text;
+      width: 70%;
+    }
+
+    .input-btn {
+      @include input-btn;
+      cursor: pointer;
+      width: 30%;
+
+      &::after {
+        display: inline-block;
+        content: '\025BC';
+        transform: rotateZ(0);
+        transition-duration: .3s;
+        transition-property: transform;
+      }
+
+      &.unfolded {
+
+        &::after {
+          transform: rotateZ(180deg);
+        }
+      }
+    }
+  }
+
+  .list-elements {
+    display: none;
+    width: 100%;
+    position: absolute;
+    z-index: 11;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    list-style-type: none;
+    color: $cui-unselected-text-color;
+    border: 1px solid $cui-border-color;
+    border-radius: $cui-border-radius;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    //setting element height can cause visual bugs when sliding down
+    //height: 410px;
+
+    .li-elem {
+      padding: .7em .4em;
+      font-size: 1em;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $cui-element-hover;
+        color: $cui-text-color;
+      }
+    }
+  }
+}

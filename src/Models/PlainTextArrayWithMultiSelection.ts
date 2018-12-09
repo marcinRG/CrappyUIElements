@@ -1,11 +1,11 @@
 import {PlainTextArray} from './PlainTextArray';
 import {ISelectedValuesList} from '../Interfaces/Data.Models/ISelectedValuesList';
-import {IList} from '../Interfaces/Data.Models/IList';
+import * as Utils from '../Utils/Utilities';
 
 export class PlainTextArrayWithMultiSelection extends PlainTextArray implements ISelectedValuesList<string> {
     constructor(values: string[], public multipleValues: boolean = false, initValue: string[] = []) {
         super(values);
-        this.initSelected(initValue);
+        this.initSelected(multipleValues, initValue);
     }
 
     public addRemoveValue(element: string) {
@@ -25,27 +25,16 @@ export class PlainTextArrayWithMultiSelection extends PlainTextArray implements 
         }
     }
 
-    private initSelected(intitValue: string[]) {
-        console.log(intitValue);
+    private initSelected(multipleValues: boolean, initValue: string[]) {
+        let value: string[] = [];
+        if (multipleValues) {
+            value = Utils.getMultipleValues(this, initValue);
+        } else {
+            const val = Utils.getSingleValue(this, initValue);
+            if (val) {
+                value = [val];
+            }
+        }
+        this.selected = value;
     }
 }
-
-// function findInList<T>(list: IList<T>, value: T) {
-//     return list.values.findIndex((elem: T) => {
-//         return list.isEqual(elem, value);
-//     });
-// }
-//
-// export function contains<T>(list: IList<T>, valuesToCheck: T | T[]) {
-//     if (Array.isArray(valuesToCheck)) {
-//         valuesToCheck.forEach((elem) => {
-//             if (findInList(list, elem) < 0) {
-//                 return false;
-//             }
-//         });
-//         return true;
-//     }
-//     else {
-//         return (findInList(list, valuesToCheck) >= 0);
-//     }
-// }

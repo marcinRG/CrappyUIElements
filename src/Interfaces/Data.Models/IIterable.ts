@@ -8,4 +8,6 @@ export interface IIterable<T> {
     isAtStart(): boolean;
 
     isAtEnd(): boolean;
+
+    checkAndSetValue(str: string): T;
 }

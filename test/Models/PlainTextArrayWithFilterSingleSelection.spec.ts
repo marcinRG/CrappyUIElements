@@ -1,0 +1,3 @@
+describe('Class PlainTextArrayWithFilterSingleSelection tests',()=>{
+
+});
