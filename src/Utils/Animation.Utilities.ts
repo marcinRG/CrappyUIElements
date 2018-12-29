@@ -57,12 +57,13 @@ class AnimationsUtils {
         let height = 0;
         let overflow = 'auto';
         let childHeight = 0;
-        if ((elem instanceof HTMLUListElement) || (elem instanceof HTMLOListElement)) {
+        if ((elem instanceof HTMLUListElement) || (elem instanceof HTMLOListElement)
+            || (elem instanceof HTMLDivElement)) {
             const elementProperties = this.getElementsProperites(elem);
             this.changePropertiesToGetElementHeight(elem);
             const listLength: number = elem.children.length;
             if (listLength > 0) {
-                childHeight = (<HTMLElement> elem.children[0]).offsetHeight + 1;
+                childHeight = (<HTMLElement> elem.children[0]).offsetHeight;
                 if (listLength > maxLength) {
                     height = maxLength * childHeight;
                     overflow = 'auto';

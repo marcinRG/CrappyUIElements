@@ -1,4 +1,6 @@
 import {IColor} from '../../src/Interfaces/Data/Color';
+import {ColorArrayWithSingleSelection} from '../../src/Models/ColorArrayWithSingleSelection';
+import {ColorComboBox} from '../../src/UIComponents/ComboBoxes/ColorComboBox/ColorComboBox';
 
 const list11: IColor[] = [
     {
@@ -7,37 +9,40 @@ const list11: IColor[] = [
         value: '#1515b6',
     },
     {
-        id: '1',
+        id: '2',
         name: 'white',
         value: '#d3e3ff',
     },
     {
-        id: '1',
+        id: '3',
         name: 'back',
         value: '#000',
     },
     {
-        id: '1',
+        id: '4',
         name: 'grey',
         value: '#555555',
     },
     {
-        id: '1',
+        id: '5',
         name: 'red',
         value: '#ff2121',
     },
     {
-        id: '1',
+        id: '6',
         name: 'yellow',
         value: '#fffc1b',
     },
 
 ];
 
-// const txtArray11 = new PlainTextArrayWithFilterSingleSelection(list11, 'element 1');
-// const comboBox = new ComboBox({
-//     elementClass: 'combo-box-cuie',
-//     querySelectorString: '.combo-box-1',
-//     listElementClass: 'li-elem',
-//     maxSize: 5,
-// }, txtArray11);
+const colorArray = new ColorArrayWithSingleSelection({
+    colorBoxClass: 'color-box',
+    colorTextClass: 'name-txt',
+}, list11);
+
+const colorComboBox = new ColorComboBox({
+    querySelectorString: '.color-cbox',
+    elementClass: 'color-combo-box-cuie',
+    maxSize: 4,
+}, colorArray);

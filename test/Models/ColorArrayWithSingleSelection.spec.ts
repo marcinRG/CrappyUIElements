@@ -37,13 +37,19 @@ describe('Class ColorArrayWithSingleSelection tests', () => {
 
     ];
     it('should exist', () => {
-        const colorArray = new ColorArrayWithSingleSelection(list11, blue);
+        const colorArray = new ColorArrayWithSingleSelection({
+            colorBoxClass: 'color-box',
+            colorTextClass: 'name-txt',
+        }, list11, blue);
         expect(colorArray).toBeDefined();
         expect(colorArray.isEqual(colorArray.selected, blue)).toBeTruthy();
         expect(colorArray.values.length).toBe(6);
     });
     it('methods should return expected values', () => {
-        const colorArray = new ColorArrayWithSingleSelection(list11, blue);
+        const colorArray = new ColorArrayWithSingleSelection({
+            colorBoxClass: 'color-box',
+            colorTextClass: 'name-txt',
+        }, list11, blue);
         const filteredArray = colorArray.filteredValues('b', 10);
         expect(filteredArray.length).toBe(2);
         const indexBlue = colorArray.getUniqueID(blue);

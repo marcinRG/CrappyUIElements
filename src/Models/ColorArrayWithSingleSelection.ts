@@ -3,12 +3,17 @@ import {IColor} from '../Interfaces/Data/Color';
 import {IList} from '../Interfaces/Data.Models/IList';
 import {IGetHTML} from '../Interfaces/Data.Models/IGetHTML';
 import {getSingleValue} from '../Utils/Utilities';
+import {IColorProperties} from '../Interfaces/Component.Properties/IColor.Properties';
 
 export class ColorArrayWithSingleSelection implements IFilteredValuesList<IColor>, IGetHTML<IColor>, IList<IColor> {
     public selected: IColor = null;
+    private colorBoxClass;
+    private colorTextClass;
 
-    constructor(public values: IColor[], initValues: IColor | IColor[]) {
+    constructor(properties: IColorProperties, public values: IColor[], initValues: IColor | IColor[] = null) {
         this.initSelected(initValues);
+        this.colorBoxClass = properties.colorBoxClass || 'color-box';
+        this.colorTextClass = properties.colorTextClass || 'name-txt';
     }
 
     public filteredValues(filterTxt: string, maxLength?: number): IColor[] {
@@ -18,8 +23,10 @@ export class ColorArrayWithSingleSelection implements IFilteredValuesList<IColor
         return (maxLength && maxLength > 0) ? filteredResults.slice(0, maxLength) : filteredResults;
     }
 
-    public getHTML(elem: IColor): HTMLElement {
-        return undefined;
+    public getHTML(elem: IColor): string {
+        const innerHTML = `<span class="${this.colorBoxClass}" style="background-color: ${elem.value}"></span>
+                           <span class="${this.colorTextClass}">${elem.name}</span>`.trim();
+        return innerHTML;
     }
 
     public getIndex(uniqueID: string): number {
@@ -37,7 +44,10 @@ export class ColorArrayWithSingleSelection implements IFilteredValuesList<IColor
     }
 
     public isEqual(elem1: IColor, elem2: IColor): boolean {
-        return (elem1.id === elem2.id);
+        if ((elem1 && elem2) && (elem1.id && elem2.id)) {
+            return (elem1.id === elem2.id);
+        }
+        return false;
     }
 
     private initSelected(initialValue: IColor | IColor[]) {

@@ -2,6 +2,7 @@ import {IComboBoxProperties} from '../../Interfaces/Component.Properties/IComboB
 import {IGetTitle} from '../../Interfaces/Data.Models/IGetTitle';
 import {IList} from '../../Interfaces/Data.Models/IList';
 import {animationsUtils} from '../../Utils/Animation.Utilities';
+import {IGetHTML} from '../../Interfaces/Data.Models/IGetHTML';
 
 export function createHTMLElements(properties: IComboBoxProperties) {
     const elementClass: string = properties.elementClass;
@@ -57,6 +58,25 @@ export function createListElements(list: IList<any> & IGetTitle<any>, values: an
     }
 }
 
+export function createListHTMLElements(list: IList<any> & IGetHTML<any>, values: any, htmlListElement: HTMLElement,
+                                       listElementClass: string, comboBox: object, callback: any) {
+    if (htmlListElement) {
+        htmlListElement.innerHTML = null;
+        for (const elem of values) {
+            const divElem: HTMLDivElement = document.createElement('div');
+            divElem.innerHTML = list.getHTML(elem);
+            const uniqueID = list.getUniqueID(elem);
+            divElem.setAttribute('data-list-nr', uniqueID);
+            divElem.addEventListener('click', () => {
+                callback.apply(comboBox, [uniqueID]);
+            });
+            divElem.classList.add(listElementClass);
+            htmlListElement.appendChild(divElem);
+        }
+    }
+    return htmlListElement;
+}
+
 export function hideAfterSelected(listElements, maxLength, listVisible, btnInput, changeBtnClass) {
     const heightOverflowProperties = animationsUtils.getListElementHeightOverflow(listElements,
         maxLength);
@@ -69,6 +89,8 @@ export function hideAfterSelected(listElements, maxLength, listVisible, btnInput
 export function toggleListElements(listElements, maxLength, listVisible) {
     const heightOverflowProperties = animationsUtils.getListElementHeightOverflow(listElements,
         maxLength);
+    console.log(heightOverflowProperties);
+    console.log(listVisible);
     if (heightOverflowProperties.height > 0) {
         if (!listVisible) {
             animationsUtils.slideDown(listElements, 150, 'ease-in',

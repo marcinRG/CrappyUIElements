@@ -1,3 +1,3 @@
 export interface IGetHTML<T> {
-    getHTML(elem: T): HTMLElement;
+    getHTML(elem: T): string;
 }
