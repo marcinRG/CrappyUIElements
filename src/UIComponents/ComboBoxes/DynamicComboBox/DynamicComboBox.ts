@@ -4,7 +4,7 @@ import * as utils from '../../../Utils/Utilities';
 import {IComboBoxProperties} from '../../../Interfaces/Component.Properties/IComboBox.Properties';
 import {IFilteredValuesList} from '../../../Interfaces/Data.Models/IFilteredValuesList';
 import {IList} from '../../../Interfaces/Data.Models/IList';
-import {IGetTitle} from '../../../Interfaces/Data.Models/IGetTitle';
+import {IGetText} from '../../../Interfaces/Data.Models/IGetText';
 
 export class DynamicComboBox {
     private htmlElement;
@@ -18,11 +18,11 @@ export class DynamicComboBox {
     private debouncedInputTxt: any;
 
     constructor(properties: IComboBoxProperties,
-                public selectableList: IFilteredValuesList<any> & IList<any> & IGetTitle<any>) {
+                public selectableList: IFilteredValuesList<any> & IList<any> & IGetText<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
-        CBoxUtils.createListElements(this.selectableList, this.selectableList.values, this.listElements,
-            this.listElementClass, this, this.changeToSelected);
+        this.listElements = CBoxUtils.createListElements(this.selectableList, this.selectableList.values,
+            this.listElements, this.listElementClass, this, this.changeToSelected);
 
         this.btnInput.addEventListener('click', () => {
             CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
@@ -31,7 +31,7 @@ export class DynamicComboBox {
 
         this.debouncedInputTxt = utils.debounce<string>((txtValue) => {
             const values = this.selectableList.filteredValues(txtValue, 0);
-            CBoxUtils.createListElements(this.selectableList, values, this.listElements,
+            this.listElements = CBoxUtils.createListElements(this.selectableList, values, this.listElements,
                 this.listElementClass, this, this.changeToSelected);
             const heightOverflowProperties = animationsUtils.getListElementHeightOverflow(this.listElements,
                 this.maxLength);
@@ -63,7 +63,7 @@ export class DynamicComboBox {
 
     private setInitialValueToTextInput() {
         if (this.selectableList.selected) {
-            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
+            this.txtInput.value = this.selectableList.getText(this.selectableList.selected);
         }
     }
 
@@ -77,9 +77,9 @@ export class DynamicComboBox {
     private changeToSelected(ID: string) {
         this.changeValue(ID);
         if (this.selectableList.selected) {
-            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
+            this.txtInput.value = this.selectableList.getText(this.selectableList.selected);
             const values = this.selectableList.filteredValues(this.txtInput.value, 0);
-            CBoxUtils.createListElements(this.selectableList, values, this.listElements,
+            this.listElements = CBoxUtils.createListElements(this.selectableList, values, this.listElements,
                 this.listElementClass, this, this.changeToSelected);
             this.hideAfterSelected();
         }

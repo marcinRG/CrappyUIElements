@@ -1,11 +1,11 @@
 import {IFilteredValuesList} from '../Interfaces/Data.Models/IFilteredValuesList';
 import {IColor} from '../Interfaces/Data/Color';
 import {IList} from '../Interfaces/Data.Models/IList';
-import {IGetHTML} from '../Interfaces/Data.Models/IGetHTML';
+import {IGetText} from '../Interfaces/Data.Models/IGetText';
 import {getSingleValue} from '../Utils/Utilities';
 import {IColorProperties} from '../Interfaces/Component.Properties/IColor.Properties';
 
-export class ColorArrayWithSingleSelection implements IFilteredValuesList<IColor>, IGetHTML<IColor>, IList<IColor> {
+export class ColorArrayWithSingleSelection implements IFilteredValuesList<IColor>, IGetText<IColor>, IList<IColor> {
     public selected: IColor = null;
     private colorBoxClass;
     private colorTextClass;
@@ -23,7 +23,7 @@ export class ColorArrayWithSingleSelection implements IFilteredValuesList<IColor
         return (maxLength && maxLength > 0) ? filteredResults.slice(0, maxLength) : filteredResults;
     }
 
-    public getHTML(elem: IColor): string {
+    public getText(elem: IColor): string {
         const innerHTML = `<span class="${this.colorBoxClass}" style="background-color: ${elem.value}"></span>
                            <span class="${this.colorTextClass}">${elem.name}</span>`.trim();
         return innerHTML;

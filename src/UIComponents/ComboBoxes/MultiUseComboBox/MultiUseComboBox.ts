@@ -1,15 +1,15 @@
-import {IColor} from '../../../Interfaces/Data/Color';
-import {IList} from '../../../Interfaces/Data.Models/IList';
+import {IHasID} from '../../../Interfaces/Data.Models/IHasID';
 import {IFilteredValuesList} from '../../../Interfaces/Data.Models/IFilteredValuesList';
+import {IList} from '../../../Interfaces/Data.Models/IList';
 import {IGetText} from '../../../Interfaces/Data.Models/IGetText';
-import {ISpinnerProperties} from '../../../Interfaces/Component.Properties/ISpinner.Properties';
-import {IColorComboBoxProperties} from '../../../Interfaces/Component.Properties/IColorComboBox.Properties';
 import * as CBoxUtils from '../ComboBox.Utils';
+import {IMultiUseComboBoxProperties} from '../../../Interfaces/Component.Properties/IMultiUseComboBox.Properties';
+import {ISpinnerProperties} from '../../../Interfaces/Component.Properties/ISpinner.Properties';
 
-export class ColorComboBox {
+export class MultiUseComboBox {
     private elementClass: string;
     private inputsRowClass: string;
-    private colorContainerClass: string;
+    private containerClass: string;
     private inputBtnClass: string;
     private listClass: string;
     private listElementClass: string;
@@ -22,8 +22,8 @@ export class ColorComboBox {
     private htmlButton: HTMLElement;
     private htmlList: HTMLElement;
 
-    constructor(properties: IColorComboBoxProperties,
-                public selectableList: IFilteredValuesList<IColor> & IList<IColor> & IGetText<IColor>) {
+    constructor(properties: IMultiUseComboBoxProperties,
+                public selectableList: IFilteredValuesList<IHasID> & IList<IHasID> & IGetText<IHasID>) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.htmlButton.addEventListener('click', () => {
@@ -41,7 +41,7 @@ export class ColorComboBox {
     private createHTMLElements(properties: ISpinnerProperties) {
         const innerHTML = `
             <div class="${this.inputsRowClass}">
-                <div class="${this.colorContainerClass}">
+                <div class="${this.containerClass}">
                 </div>
                 <button class="${this.inputBtnClass}"></button>
             </div>
@@ -59,14 +59,14 @@ export class ColorComboBox {
 
     private setInitialValueToTextInput() {
         if (this.selectableList.selected) {
-            this.htmlContainer.innerHTML = this.selectableList.getText(<IColor> this.selectableList.selected);
+            this.htmlContainer.innerHTML = this.selectableList.getText(<IHasID> this.selectableList.selected);
         }
     }
 
     private changeToSelected(ID: string) {
         this.changeValue(ID);
         if ((this.selectableList.selected)) {
-            this.htmlContainer.innerHTML = this.selectableList.getText(<IColor> this.selectableList.selected);
+            this.htmlContainer.innerHTML = this.selectableList.getText(<IHasID> this.selectableList.selected);
             this.hideAfterSelected();
         }
     }
@@ -80,19 +80,19 @@ export class ColorComboBox {
         this.listVisible = CBoxUtils.toggleListElements(this.htmlList, this.maxLength, this.listVisible);
     }
 
-    private setProperties(properties: IColorComboBoxProperties) {
+    private setProperties(properties: IMultiUseComboBoxProperties) {
+        this.containerClass = properties.containerClass;
+        this.maxLength = properties.maxSize;
         this.elementClass = properties.elementClass || 'color-combo-box-cuie';
         this.inputsRowClass = properties.inputsRowClass || 'inputs';
-        this.colorContainerClass = properties.colorContainerClass || 'color-container';
         this.inputBtnClass = properties.inputBtnClass || 'input-btn';
         this.listClass = properties.listClass || 'list-elements';
         this.listElementClass = properties.listElementClass || 'li-elem';
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
-        this.maxLength = properties.maxSize;
     }
 
     private setHTMLElements() {
-        const selectorContainer = `.${this.colorContainerClass}`;
+        const selectorContainer = `.${this.containerClass}`;
         this.htmlContainer = this.htmlElement.querySelector(selectorContainer);
         const selectorBtn = `.${this.inputBtnClass}`;
         this.htmlButton = this.htmlElement.querySelector(selectorBtn);

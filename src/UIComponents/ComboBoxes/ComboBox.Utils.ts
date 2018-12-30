@@ -1,8 +1,7 @@
 import {IComboBoxProperties} from '../../Interfaces/Component.Properties/IComboBox.Properties';
-import {IGetTitle} from '../../Interfaces/Data.Models/IGetTitle';
 import {IList} from '../../Interfaces/Data.Models/IList';
 import {animationsUtils} from '../../Utils/Animation.Utilities';
-import {IGetHTML} from '../../Interfaces/Data.Models/IGetHTML';
+import {IGetText} from '../../Interfaces/Data.Models/IGetText';
 
 export function createHTMLElements(properties: IComboBoxProperties) {
     const elementClass: string = properties.elementClass;
@@ -40,41 +39,50 @@ export function addRemoveClass(condition: boolean, element: HTMLElement, classNa
     }
 }
 
-export function createListElements(list: IList<any> & IGetTitle<any>, values: any, htmlListElement: HTMLElement,
-                                   listElementClass: string, comboBox: object, callback: any) {
-    if (htmlListElement) {
-        htmlListElement.innerHTML = null;
-        for (const elem of values) {
-            const liElem: HTMLLIElement = document.createElement('li');
-            liElem.textContent = list.getTitle(elem);
-            const uniqueID = list.getUniqueID(elem);
-            liElem.setAttribute('data-list-nr', uniqueID);
-            liElem.addEventListener('click', () => {
-                callback.apply(comboBox, [uniqueID]);
-            });
-            liElem.classList.add(listElementClass);
-            htmlListElement.appendChild(liElem);
-        }
-    }
+function createLiElement(text: string, uniqueID: string, className: string) {
+    const liElem: HTMLLIElement = document.createElement('li');
+    liElem.textContent = text;
+    liElem.setAttribute('data-list-nr', uniqueID);
+    liElem.classList.add(className);
+    return liElem;
 }
 
-export function createListHTMLElements(list: IList<any> & IGetHTML<any>, values: any, htmlListElement: HTMLElement,
-                                       listElementClass: string, comboBox: object, callback: any) {
+function createDivElement(innerHTML: string, uniqueID: string, className: string) {
+    const divElem: HTMLDivElement = document.createElement('div');
+    divElem.innerHTML = innerHTML;
+    divElem.setAttribute('data-list-nr', uniqueID);
+    divElem.classList.add(className);
+    return divElem;
+}
+
+function createElements(list: IList<any> & IGetText<any>, values: any, htmlListElement: HTMLElement,
+                        listElementClass: string, comboBox: object, callback: any, createElementFunction: any) {
     if (htmlListElement) {
         htmlListElement.innerHTML = null;
         for (const elem of values) {
-            const divElem: HTMLDivElement = document.createElement('div');
-            divElem.innerHTML = list.getHTML(elem);
             const uniqueID = list.getUniqueID(elem);
-            divElem.setAttribute('data-list-nr', uniqueID);
+            const text = list.getText(elem);
+            const divElem: HTMLDivElement = createElementFunction(text, uniqueID, listElementClass);
             divElem.addEventListener('click', () => {
                 callback.apply(comboBox, [uniqueID]);
             });
-            divElem.classList.add(listElementClass);
+
             htmlListElement.appendChild(divElem);
         }
     }
     return htmlListElement;
+}
+
+export function createListElements(list: IList<any> & IGetText<any>, values: any, htmlListElement: HTMLElement,
+                                   listElementClass: string, comboBox: object, callback: any) {
+    return createElements(list, values, htmlListElement,
+        listElementClass, comboBox, callback, createLiElement);
+}
+
+export function createListHTMLElements(list: IList<any> & IGetText<any>, values: any, htmlListElement: HTMLElement,
+                                       listElementClass: string, comboBox: object, callback: any) {
+    return createElements(list, values, htmlListElement,
+        listElementClass, comboBox, callback, createDivElement);
 }
 
 export function hideAfterSelected(listElements, maxLength, listVisible, btnInput, changeBtnClass) {
@@ -89,8 +97,6 @@ export function hideAfterSelected(listElements, maxLength, listVisible, btnInput
 export function toggleListElements(listElements, maxLength, listVisible) {
     const heightOverflowProperties = animationsUtils.getListElementHeightOverflow(listElements,
         maxLength);
-    console.log(heightOverflowProperties);
-    console.log(listVisible);
     if (heightOverflowProperties.height > 0) {
         if (!listVisible) {
             animationsUtils.slideDown(listElements, 150, 'ease-in',

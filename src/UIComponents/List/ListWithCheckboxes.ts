@@ -1,7 +1,7 @@
 import {IListWithCheckBoxesProperties} from '../../Interfaces/Component.Properties/IListWithCheckBoxes.properties';
 import {ISelectedValuesList} from '../../Interfaces/Data.Models/ISelectedValuesList';
 import {IList} from '../../Interfaces/Data.Models/IList';
-import {IGetTitle} from '../../Interfaces/Data.Models/IGetTitle';
+import {IGetText} from '../../Interfaces/Data.Models/IGetText';
 
 export class ListWithCheckboxes {
     public checkBoxes;
@@ -14,7 +14,7 @@ export class ListWithCheckboxes {
     private valueClass;
 
     constructor(properties: IListWithCheckBoxesProperties,
-                public selectableList: ISelectedValuesList<any> & IList<any> & IGetTitle<any>) {
+                public selectableList: ISelectedValuesList<any> & IList<any> & IGetText<any>) {
         this.setProperties(properties);
         this.createHTMLElements(properties);
         this.setHTMLElements();
@@ -77,7 +77,7 @@ export class ListWithCheckboxes {
             const isChecked = (this.selectableList.selected.findIndex((value) => {
                 return this.selectableList.isEqual(elem, value);
             }) >= 0);
-            const text = this.selectableList.getTitle(elem);
+            const text = this.selectableList.getText(elem);
             const uniqueId = this.selectableList.getUniqueID(elem);
             ul.appendChild(this.createListElement(text, uniqueId, isChecked, this, this.toggleCheckBox));
         }
