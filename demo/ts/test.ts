@@ -49,6 +49,7 @@ const colorComboBox = new MultiUseComboBox({
     elementClass: 'multi-combo-box-cuie',
     containerClass: 'color-container',
     maxSize: 5,
+    menuZIndex: 50,
 }, colorArrayId);
 
 const timesNR: IFont = {
@@ -102,7 +103,8 @@ const fontComboBox = new MultiUseComboBox({
     querySelectorString: '.font-cbox2',
     elementClass: 'multi-combo-box-cuie',
     containerClass: 'font-container',
-    maxSize: 5,
+    maxSize: 4,
+    menuZIndex: 40,
 }, fontArrayId);
 
 const list12 = [
@@ -124,4 +126,5 @@ const comboBox = new ComboBox({
     querySelectorString: '.combo-box-1',
     listElementClass: 'li-elem',
     maxSize: 5,
+    menuZIndex: 30,
 }, txtArray11);

@@ -9,12 +9,13 @@ export function createHTMLElements(properties: IComboBoxProperties) {
     const inputBtnClass: string = properties.btnInputClass || 'input-btn';
     const inputsRowClass: string = properties.inputsRowClass || 'inputs';
     const listClass: string = properties.listClass || 'list-elements';
+    const zindex: string = properties.menuZIndex + '';
     const htmlInner = `
         <div class="${inputsRowClass}">
             <input class="${inputTxtClass}" type="text">
             <button class="${inputBtnClass}"></button>
         </div>
-        <ul class="${listClass}">
+        <ul class="${listClass}" style="z-index: ${zindex}">
         </ul>`;
     const htmlElement: HTMLElement = document.querySelector(properties.querySelectorString);
     if (htmlElement) {

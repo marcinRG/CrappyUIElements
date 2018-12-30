@@ -9,4 +9,5 @@ export interface IComboBoxProperties extends IComponentProperties {
     listClass?: string;
     listElementClass: string;
     maxSize: number;
+    menuZIndex: number;
 }

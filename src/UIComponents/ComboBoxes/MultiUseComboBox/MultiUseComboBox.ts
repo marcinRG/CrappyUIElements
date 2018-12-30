@@ -13,6 +13,7 @@ export class MultiUseComboBox {
     private inputBtnClass: string;
     private listClass: string;
     private listElementClass: string;
+    private zIndex: string;
     private changeBtnClass;
     private maxLength;
     private listVisible = false;
@@ -45,7 +46,7 @@ export class MultiUseComboBox {
                 </div>
                 <button class="${this.inputBtnClass}"></button>
             </div>
-            <div class="${this.listClass}">
+            <div class="${this.listClass}" style="z-index: ${this.zIndex}">
             </div>`.trim();
         this.htmlElement = document.querySelector(properties.querySelectorString);
         if (this.htmlElement) {
@@ -88,6 +89,7 @@ export class MultiUseComboBox {
         this.inputBtnClass = properties.inputBtnClass || 'input-btn';
         this.listClass = properties.listClass || 'list-elements';
         this.listElementClass = properties.listElementClass || 'li-elem';
+        this.zIndex = properties.menuZIndex + '';
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
     }
 

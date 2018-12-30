@@ -8,4 +8,5 @@ export interface IMultiUseComboBoxProperties extends IComponentProperties {
     listClass?: string;
     listElementClass?: string;
     btnChangeClass?: string;
+    menuZIndex: number;
 }
