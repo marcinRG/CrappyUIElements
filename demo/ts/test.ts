@@ -1,18 +1,18 @@
 import {IColor} from '../../src/Interfaces/Data/Color';
-import {ColorArrayWithSingleSelection} from '../../src/Models/ColorArrayWithSingleSelection';
-import {ColorComboBox} from '../../src/UIComponents/ComboBoxes/ColorComboBox/ColorComboBox';
 import {PlainTextArrayWithFilterSingleSelection} from '../../src/Models/PlainTextArrayWithFilterSingleSelection';
 import {ComboBox} from '../../src/UIComponents/ComboBoxes/ComboBox/ComboBox';
-import {ColorRenderer} from '../../src/Models/ColorRenderer';
+import {ColorRenderer} from '../../src/Models/Renderers/ColorRenderer';
 import {IdArrayWithSingleSelection} from '../../src/Models/IdArrayWithSingleSelection';
+import {IFont} from '../../src/Interfaces/Data/Font';
+import {MultiUseComboBox} from '../../src/UIComponents/ComboBoxes/MultiUseComboBox/MultiUseComboBox';
+import {FontRenderer} from '../../src/Models/Renderers/FontRenderer';
 
 const blue: IColor = {
     id: '1',
     name: 'blue',
     value: '#1515b6',
 };
-
-const list11: IColor[] = [
+const colorsList: IColor[] = [
     blue,
     {
         id: '2',
@@ -41,30 +41,69 @@ const list11: IColor[] = [
     },
 
 ];
-
 const colorRenderer = new ColorRenderer('color-box', 'name-txt');
-const txt = colorRenderer.getText(blue);
-console.log(txt);
-const colorArrayId = new IdArrayWithSingleSelection<IColor>(list11, colorRenderer, 'name', blue);
-const txt2 = colorArrayId.getText(blue);
-const colorComboBox2 = new ColorComboBox({
-    querySelectorString: '.color-cbox2',
-    elementClass: 'color-combo-box-cuie',
+const colorArrayId = new IdArrayWithSingleSelection<IColor>(colorsList, colorRenderer, 'name', blue);
+
+const colorComboBox = new MultiUseComboBox({
+    querySelectorString: '.color-cbox',
+    elementClass: 'multi-combo-box-cuie',
+    containerClass: 'color-container',
     maxSize: 5,
 }, colorArrayId);
 
-console.log(txt2);
+const timesNR: IFont = {
+    id: '1',
+    name: 'Times New Roman',
+    value: '\'Times New Roman\', Times, serif',
+};
+const fontsList: IFont[] = [
+    timesNR,
+    {
+        id: '2',
+        name: 'Arial',
+        value: 'Arial, sans-serif',
+    },
+    {
+        id: '3',
+        name: 'Papyrus',
+        value: 'Papyrus, fantasy',
+    },
+    {
+        id: '4',
+        name: 'Courier New',
+        value: '\'Courier New\',monospace',
+    },
+    {
+        id: '5',
+        name: 'Cambria',
+        value: 'Cambria,serif',
+    },
+    {
+        id: '6',
+        name: 'Georgia',
+        value: 'Georgia,serif',
+    },
+    {
+        id: '7',
+        name: 'Palatino',
+        value: 'Palatino,serif',
+    },
+    {
+        id: '8',
+        name: 'Verdana',
+        value: 'Verdana,sans-serif',
+    },
+];
 
-const colorArray = new ColorArrayWithSingleSelection({
-    colorBoxClass: 'color-box',
-    colorTextClass: 'name-txt',
-}, list11, blue);
+const fontRenderer = new FontRenderer('font-box');
+const fontArrayId = new IdArrayWithSingleSelection<IFont>(fontsList, fontRenderer, 'name', timesNR);
 
-const colorComboBox = new ColorComboBox({
-    querySelectorString: '.color-cbox',
-    elementClass: 'color-combo-box-cuie',
+const fontComboBox = new MultiUseComboBox({
+    querySelectorString: '.font-cbox2',
+    elementClass: 'multi-combo-box-cuie',
+    containerClass: 'font-container',
     maxSize: 5,
-}, colorArray);
+}, fontArrayId);
 
 const list12 = [
     'element 1',

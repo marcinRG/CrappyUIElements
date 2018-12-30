@@ -9,7 +9,8 @@
   .inputs {
     @include input-fields;
 
-    .color-container {
+    .color-container,
+    .font-container {
       @include input-text;
       width: 70%;
       height: 100%;
@@ -61,6 +62,15 @@
     width: 20px;
     border: 2px solid $cui-element-btn-color;
     border-radius: 2px;
+  }
+
+  .font-box {
+    @include block-border-box;
+    @include set-to-zero;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
   }
 
   .list-elements {

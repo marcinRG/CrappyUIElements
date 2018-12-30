@@ -432,7 +432,8 @@
     height: 2em; }
     .multi-combo-box-cuie .inputs::after {
       clear: both; }
-    .multi-combo-box-cuie .inputs .color-container {
+    .multi-combo-box-cuie .inputs .color-container,
+    .multi-combo-box-cuie .inputs .font-container {
       border: 0;
       margin: 0;
       padding: 0;
@@ -448,7 +449,8 @@
       width: 70%;
       height: 100%;
       position: relative; }
-      .multi-combo-box-cuie .inputs .color-container:focus {
+      .multi-combo-box-cuie .inputs .color-container:focus,
+      .multi-combo-box-cuie .inputs .font-container:focus {
         background-color: #f5f5f5; }
     .multi-combo-box-cuie .inputs .input-btn {
       border: 0;
@@ -516,6 +518,22 @@
     width: 20px;
     border: 2px solid #d7d7d7;
     border-radius: 2px; }
+  .multi-combo-box-cuie .font-box {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    display: block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+    left: 10px; }
   .multi-combo-box-cuie .list-elements {
     display: none;
     width: 100%;

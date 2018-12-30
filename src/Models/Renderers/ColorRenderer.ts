@@ -1,5 +1,5 @@
-import {IGetText} from '../Interfaces/Data.Models/IGetText';
-import {IColor} from '../Interfaces/Data/Color';
+import {IGetText} from '../../Interfaces/Data.Models/IGetText';
+import {IColor} from '../../Interfaces/Data/Color';
 
 export class ColorRenderer implements IGetText<IColor> {
 
