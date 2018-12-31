@@ -15,4 +15,5 @@ export interface IDatePickerProperties extends IComponentProperties {
     selectedDayClass: string;
     showDateOnStart?: boolean;
     datePickerDivClass?: string;
+    daysZindex: number;
 }

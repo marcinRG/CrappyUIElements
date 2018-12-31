@@ -24,6 +24,7 @@ export declare class DatePicker {
     private datePickerDivClass;
     private todayClass;
     private selectedDayClass;
+    private zIndex;
     private showDateOnStart;
     constructor(properties: IDatePickerProperties, date: IDateExtended);
     changeValue(operation: string, value?: any): any;

@@ -1,0 +1,112 @@
+@import '../variables';
+@import '../mixins';
+
+.multi-combo-box-cuie {
+  @include block-border-box;
+  position: relative;
+  min-width: 320px;
+
+  .inputs {
+    @include input-fields;
+
+    .color-container,
+    .font-container {
+      @include input-text;
+      width: 70%;
+      height: 100%;
+      position: relative;
+    }
+
+    .input-btn {
+      @include input-btn;
+      cursor: pointer;
+      width: 30%;
+
+      &::after {
+        display: inline-block;
+        content: '\025BC';
+        transform: rotateZ(0);
+        transition-duration: .3s;
+        transition-property: transform;
+      }
+
+      &.unfolded {
+
+        &::after {
+          transform: rotateZ(180deg);
+        }
+      }
+    }
+  }
+
+  .name-txt {
+    @include set-to-zero;
+    position: absolute;
+    box-sizing: border-box;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 35px;
+    display: block;
+    width: 200px;
+    height: 70%;
+  }
+
+  .color-box {
+    @include block-border-box;
+    @include set-to-zero;
+    position: absolute;
+    height: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    width: 20px;
+    border: 2px solid $cui-element-btn-color;
+    border-radius: 2px;
+  }
+
+  .font-box {
+    @include block-border-box;
+    @include set-to-zero;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+  }
+
+  .list-elements {
+    display: none;
+    width: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 11;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    list-style-type: none;
+    color: $cui-unselected-text-color;
+    border: 1px solid $cui-border-color;
+    border-radius: $cui-border-radius;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+    //setting element height can cause visual bugs when sliding down
+    //height: 410px;
+
+    .li-elem {
+      @include block-border-box;
+      height: 2em;
+      cursor: pointer;
+      position: relative;
+
+      &:hover {
+        background-color: $cui-element-hover;
+        color: $cui-text-color;
+
+        .color-box {
+          border: 2px solid white;
+        }
+
+      }
+    }
+  }
+}

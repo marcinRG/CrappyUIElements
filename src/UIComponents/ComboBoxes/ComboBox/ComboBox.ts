@@ -2,7 +2,7 @@ import * as CBoxUtils from '../ComboBox.Utils';
 import {IComboBoxProperties} from '../../../Interfaces/Component.Properties/IComboBox.Properties';
 import {IFilteredValuesList} from '../../../Interfaces/Data.Models/IFilteredValuesList';
 import {IList} from '../../../Interfaces/Data.Models/IList';
-import {IGetTitle} from '../../../Interfaces/Data.Models/IGetTitle';
+import {IGetText} from '../../../Interfaces/Data.Models/IGetText';
 
 export class ComboBox {
     private htmlElement;
@@ -15,12 +15,12 @@ export class ComboBox {
     private changeBtnClass;
 
     constructor(properties: IComboBoxProperties,
-                public selectableList: IFilteredValuesList<any> & IList<any> & IGetTitle<any>) {
+                public selectableList: IFilteredValuesList<any> & IList<any> & IGetText<any>) {
         this.createElements(properties);
         this.setInitialProperties(properties);
         const values = this.selectableList.values;
-        CBoxUtils.createListElements(this.selectableList, values, this.listElements, this.listElementClass,
-            this, this.changeToSelected);
+        this.listElements = CBoxUtils.createListElements(this.selectableList, values, this.listElements,
+            this.listElementClass, this, this.changeToSelected);
         this.btnInput.addEventListener('click', () => {
             CBoxUtils.addRemoveClass(this.listVisible, this.btnInput, this.changeBtnClass);
             this.toggleListElements();
@@ -35,14 +35,14 @@ export class ComboBox {
 
     private setInitialValueToTextInput() {
         if (this.selectableList.selected) {
-            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
+            this.txtInput.value = this.selectableList.getText(this.selectableList.selected);
         }
     }
 
     private setInitialProperties(properties: IComboBoxProperties) {
         this.txtInput.readOnly = true;
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
-        this.listElementClass = properties.listElementClass;
+        this.listElementClass = properties.listElementClass || 'li-elem';
         this.maxLength = properties.maxSize;
     }
 
@@ -57,7 +57,7 @@ export class ComboBox {
     private changeToSelected(ID: string) {
         this.changeValue(ID);
         if (this.selectableList.selected) {
-            this.txtInput.value = this.selectableList.getTitle(this.selectableList.selected);
+            this.txtInput.value = this.selectableList.getText(this.selectableList.selected);
             this.hideAfterSelected();
         }
     }

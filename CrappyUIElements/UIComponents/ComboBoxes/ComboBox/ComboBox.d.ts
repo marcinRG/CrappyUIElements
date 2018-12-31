@@ -1,9 +1,9 @@
 import { IComboBoxProperties } from '../../../Interfaces/Component.Properties/IComboBox.Properties';
 import { IFilteredValuesList } from '../../../Interfaces/Data.Models/IFilteredValuesList';
 import { IList } from '../../../Interfaces/Data.Models/IList';
-import { IGetTitle } from '../../../Interfaces/Data.Models/IGetTitle';
+import { IGetText } from '../../../Interfaces/Data.Models/IGetText';
 export declare class ComboBox {
-    selectableList: IFilteredValuesList<any> & IList<any> & IGetTitle<any>;
+    selectableList: IFilteredValuesList<any> & IList<any> & IGetText<any>;
     private htmlElement;
     private txtInput;
     private btnInput;
@@ -12,7 +12,7 @@ export declare class ComboBox {
     private maxLength;
     private listVisible;
     private changeBtnClass;
-    constructor(properties: IComboBoxProperties, selectableList: IFilteredValuesList<any> & IList<any> & IGetTitle<any>);
+    constructor(properties: IComboBoxProperties, selectableList: IFilteredValuesList<any> & IList<any> & IGetText<any>);
     changeValue(ID: string): void;
     private setInitialValueToTextInput;
     private setInitialProperties;

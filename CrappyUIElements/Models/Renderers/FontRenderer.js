@@ -1,0 +1,1 @@
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var FontRenderer=function(){function e(e){this.fontBoxClass=e}return e.prototype.getText=function(e){return('<span class="'+this.fontBoxClass+'" style="font-family: '+e.value+'">'+e.name+"</span>\n").trim()},e}();exports.FontRenderer=FontRenderer;

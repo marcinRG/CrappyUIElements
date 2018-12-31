@@ -1,9 +1,9 @@
 import { IListWithCheckBoxesProperties } from '../../Interfaces/Component.Properties/IListWithCheckBoxes.properties';
 import { ISelectedValuesList } from '../../Interfaces/Data.Models/ISelectedValuesList';
 import { IList } from '../../Interfaces/Data.Models/IList';
-import { IGetTitle } from '../../Interfaces/Data.Models/IGetTitle';
+import { IGetText } from '../../Interfaces/Data.Models/IGetText';
 export declare class ListWithCheckboxes {
-    selectableList: ISelectedValuesList<any> & IList<any> & IGetTitle<any>;
+    selectableList: ISelectedValuesList<any> & IList<any> & IGetText<any>;
     checkBoxes: any;
     selectedElementClass: any;
     checkBoxClass: any;
@@ -12,7 +12,7 @@ export declare class ListWithCheckboxes {
     private listClass;
     private listElementClass;
     private valueClass;
-    constructor(properties: IListWithCheckBoxesProperties, selectableList: ISelectedValuesList<any> & IList<any> & IGetTitle<any>);
+    constructor(properties: IListWithCheckBoxesProperties, selectableList: ISelectedValuesList<any> & IList<any> & IGetText<any>);
     changeValue(value: any): void;
     private toggleCheckBox;
     private unCheckAllCheckBoxes;

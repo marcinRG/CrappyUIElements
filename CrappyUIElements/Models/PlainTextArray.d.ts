@@ -1,11 +1,11 @@
-import { IGetTitle } from '../Interfaces/Data.Models/IGetTitle';
+import { IGetText } from '../Interfaces/Data.Models/IGetText';
 import { IList } from '../Interfaces/Data.Models/IList';
-export declare class PlainTextArray implements IGetTitle<string>, IList<string> {
+export declare class PlainTextArray implements IGetText<string>, IList<string> {
     values: string[];
     selected: any;
     constructor(values: string[], selected?: any);
     getIndex(uniqueID: string): number;
-    getTitle(elem: string): string;
+    getText(elem: string): string;
     getUniqueID(elem: string): string;
     isEqual(elem1: string, elem2: string): boolean;
 }

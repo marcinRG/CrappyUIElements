@@ -1,7 +1,7 @@
-import {IGetTitle} from '../Interfaces/Data.Models/IGetTitle';
+import {IGetText} from '../Interfaces/Data.Models/IGetText';
 import {IList} from '../Interfaces/Data.Models/IList';
 
-export class PlainTextArray implements IGetTitle<string>, IList<string> {
+export class PlainTextArray implements IGetText<string>, IList<string> {
 
     constructor(public values: string[], public selected = null) {
     }
@@ -14,7 +14,7 @@ export class PlainTextArray implements IGetTitle<string>, IList<string> {
         return null;
     }
 
-    public getTitle(elem: string): string {
+    public getText(elem: string): string {
         return elem;
     }
 

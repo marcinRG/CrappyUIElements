@@ -1,3 +1,0 @@
-describe('Class PlainTextArrayWithFilterSingleSelection tests',()=>{
-
-});

@@ -28,6 +28,7 @@ export class DatePicker {
     private datePickerDivClass: string;
     private todayClass: string;
     private selectedDayClass: string;
+    private zIndex: string;
     private showDateOnStart;
 
     constructor(properties: IDatePickerProperties, public date: IDateExtended) {
@@ -74,7 +75,7 @@ export class DatePicker {
             case 'txtDate' : {
                 if (value && (typeof(value) === 'string')) {
                     if (this.date.validateDate(value)) {
-                       return this.date.getDateFromString(value);
+                        return this.date.getDateFromString(value);
                     }
                     return null;
                 }
@@ -122,6 +123,7 @@ export class DatePicker {
         this.todayClass = properties.todayClass || 'today-date';
         this.selectedDayClass = properties.selectedDayClass || 'current-date';
         this.showDateOnStart = properties.showDateOnStart || 'false';
+        this.zIndex = properties.daysZindex + '';
     }
 
     private setHTMLElementsAndCollections() {
@@ -228,6 +230,7 @@ export class DatePicker {
 
     private createDatePickerElem(properties: IDatePickerProperties) {
         const dateDiv = document.createElement('div');
+        dateDiv.setAttribute('style', `z-index: ${this.zIndex}`);
         dateDiv.classList.add(this.datePickerDivClass);
         dateDiv.appendChild(this.createMonthSelectionElement());
         dateDiv.appendChild(this.createDaysTable());
