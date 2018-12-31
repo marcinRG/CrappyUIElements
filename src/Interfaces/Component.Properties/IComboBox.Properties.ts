@@ -7,7 +7,7 @@ export interface IComboBoxProperties extends IComponentProperties {
     btnInputClass?: string;
     btnChangeClass?: string;
     listClass?: string;
-    listElementClass: string;
+    listElementClass?: string;
     maxSize: number;
     menuZIndex: number;
 }

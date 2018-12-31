@@ -70,7 +70,7 @@ export class DynamicComboBox {
     private setInitialProperties(properties: IComboBoxProperties) {
         this.txtInput.readOnly = false;
         this.changeBtnClass = properties.btnChangeClass || 'unfolded';
-        this.listElementClass = properties.listElementClass;
+        this.listElementClass = properties.listElementClass || 'li-elem';
         this.maxLength = properties.maxSize;
     }
 

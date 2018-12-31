@@ -1,0 +1,112 @@
+@import '../variables';
+@import '../mixins';
+
+.date-picker-cuie {
+  @include block-border-box;
+  position: relative;
+  min-width: 320px;
+
+  .inputs {
+    @include input-fields;
+
+    .input-txt {
+      @include input-text;
+      width: 70%;
+    }
+
+    .input-btn {
+      @include input-btn;
+      cursor: pointer;
+      width: 30%;
+
+      &::after {
+        display: inline-block;
+        content: '\01F4C5';
+      }
+    }
+  }
+
+  .date-picker {
+    border: $cui-border-color solid 1px;
+    border-radius: $cui-border-radius;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    display: none;
+    z-index: 12;
+
+    .month-selection {
+      @include clear-both-overflow-hidden;
+      height: 2em;
+      border-bottom: $cui-border-color solid 1px;
+    }
+
+    .next-btn {
+      @include block-border-box;
+      cursor: pointer;
+      outline: 0;
+      float: right;
+      height: 100%;
+      background-color: $cui-element-btn-color;
+      width: 10%;
+
+      &::after {
+        display: inline-block;
+        content: '\025BA';
+      }
+    }
+
+    .prev-btn {
+      @include block-border-box;
+      cursor: pointer;
+      outline: 0;
+      float: left;
+      height: 100%;
+      width: 10%;
+      background-color: $cui-element-btn-color;
+
+      &::after {
+        display: inline-block;
+        content: '\025C4';
+      }
+    }
+
+    .month-display {
+      @include block-border-box;
+      float: left;
+      height: 100%;
+      width: 80%;
+      font-size: 1em;
+      padding: .3em;
+      text-align: center;
+    }
+
+    .days-table {
+      margin: 0 auto .25em;
+      text-align: center;
+
+      .cell-header {
+        padding: .1em;
+        border: 3px transparent solid;
+        background-color: $cui-element-title;
+        font-weight: bold;
+      }
+
+      .cell-day {
+        cursor: pointer;
+        border-top: 3px transparent solid;
+        border-bottom: 3px transparent solid;
+        padding: .1em;
+
+        &.today-date {
+          border-top: 3px green solid;
+        }
+
+        &.current-date {
+          border-bottom: 3px solid red;
+        }
+
+      }
+    }
+  }
+}

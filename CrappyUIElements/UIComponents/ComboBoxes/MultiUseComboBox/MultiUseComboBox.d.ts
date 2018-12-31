@@ -1,0 +1,31 @@
+import { IHasID } from '../../../Interfaces/Data.Models/IHasID';
+import { IFilteredValuesList } from '../../../Interfaces/Data.Models/IFilteredValuesList';
+import { IList } from '../../../Interfaces/Data.Models/IList';
+import { IGetText } from '../../../Interfaces/Data.Models/IGetText';
+import { IMultiUseComboBoxProperties } from '../../../Interfaces/Component.Properties/IMultiUseComboBox.Properties';
+export declare class MultiUseComboBox {
+    selectableList: IFilteredValuesList<IHasID> & IList<IHasID> & IGetText<IHasID>;
+    private elementClass;
+    private inputsRowClass;
+    private containerClass;
+    private inputBtnClass;
+    private listClass;
+    private listElementClass;
+    private zIndex;
+    private changeBtnClass;
+    private maxLength;
+    private listVisible;
+    private htmlElement;
+    private htmlContainer;
+    private htmlButton;
+    private htmlList;
+    constructor(properties: IMultiUseComboBoxProperties, selectableList: IFilteredValuesList<IHasID> & IList<IHasID> & IGetText<IHasID>);
+    changeValue(ID: string): void;
+    private createHTMLElements;
+    private setInitialValueToTextInput;
+    private changeToSelected;
+    private hideAfterSelected;
+    private toggleListElements;
+    private setProperties;
+    private setHTMLElements;
+}
