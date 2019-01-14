@@ -1,6 +1,6 @@
 import {PlainTextArrayWithMultiSelection} from '../../src/Models/PlainTextArrayWithMultiSelection';
 
-describe('Class PlainTextArrayWithMultiSelection tests',()=>{
+describe('Class PlainTextArrayWithMultiSelection tests', () => {
     const listTxt = [
         'element 1',
         'element 2',
@@ -14,14 +14,11 @@ describe('Class PlainTextArrayWithMultiSelection tests',()=>{
         'element 10',
         'element 11',
     ];
-
-
-    it('should exist',()=>{
+    it('should exist', () => {
         const plainTxtMultiSelection = new PlainTextArrayWithMultiSelection(listTxt);
         expect(plainTxtMultiSelection).toBeDefined();
         expect(plainTxtMultiSelection.values.length).toBe(11);
         expect(plainTxtMultiSelection.selected.length).toBe(0);
         expect(plainTxtMultiSelection.isEqual(plainTxtMultiSelection.values[0], 'element 1')).toBeTruthy();
     });
-
 });
