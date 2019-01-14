@@ -21,19 +21,18 @@ export class Slider {
         this.createHTMLElements(properties);
         this.setHTMLElements();
         this.setMinMaxWidth();
-        this.changePointerPositionAndFillBeamLength((this.minWidth +
-            this.minMaxValue.transformation(this.minWidth, this.maxWidth)));
+        this.changePointerPositionAndFillBeamLength((this.minMaxValue.transformation(this.minWidth, this.maxWidth)));
 
         this.htmlFieldElement.addEventListener('click', (event: MouseEvent) => {
-            const x = event.clientX;
+            const x = this.limitValues(event.clientX);
             this.changePointerPositionAndFillBeamLength(x);
             this.changeValue(x, this.minWidth, this.maxWidth);
         });
 
         window.addEventListener('resize', () => {
             this.setMinMaxWidth();
-            this.changePointerPositionAndFillBeamLength((this.minWidth +
-                this.minMaxValue.transformation(this.minWidth, this.maxWidth)));
+            this.changePointerPositionAndFillBeamLength(
+                this.minMaxValue.transformation(this.minWidth, this.maxWidth));
         });
 
         this.htmlFieldElement.addEventListener('mousemove', (event: MouseEvent) => {
@@ -60,6 +59,16 @@ export class Slider {
     public changeValue(x: number, min: number, max: number) {
         this.minMaxValue.value = this.minMaxValue.reverseTransformation(
             x, min, max);
+    }
+
+    private limitValues(x: number) {
+        if (x < this.minWidth) {
+            return this.minWidth;
+        }
+        if (x > this.maxWidth) {
+            return this.maxWidth;
+        }
+        return x;
     }
 
     private setMinMaxWidth() {

@@ -17,6 +17,7 @@ export declare class Slider {
     private htmlElement;
     constructor(properties: ISliderProperties, minMaxValue: IValueTransformation<any>);
     changeValue(x: number, min: number, max: number): void;
+    private limitValues;
     private setMinMaxWidth;
     private changePointerPositionAndFillBeamLength;
     private setProperties;
