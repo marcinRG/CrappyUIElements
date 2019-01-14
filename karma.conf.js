@@ -14,7 +14,7 @@ module.exports = function (config) {
         files: [
             './src/**/*.ts',
             './test/**/*.ts',
-            './demo/**/*.ts'
+            //'./demo/**/*.ts'
         ],
 
         // list of files to exclude

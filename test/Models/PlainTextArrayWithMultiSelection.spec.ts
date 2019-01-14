@@ -15,7 +15,6 @@ describe('Class PlainTextArrayWithMultiSelection tests',()=>{
         'element 11',
     ];
 
-
     it('should exist',()=>{
         const plainTxtMultiSelection = new PlainTextArrayWithMultiSelection(listTxt);
         expect(plainTxtMultiSelection).toBeDefined();
